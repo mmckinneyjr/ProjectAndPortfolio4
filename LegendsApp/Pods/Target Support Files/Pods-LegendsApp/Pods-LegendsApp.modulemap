@@ -1,0 +1,6 @@
+framework module Pods_LegendsApp {
+  umbrella header "Pods-LegendsApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
