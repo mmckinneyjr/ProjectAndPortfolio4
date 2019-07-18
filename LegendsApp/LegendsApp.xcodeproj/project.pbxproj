@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D51B74A22D8E62100F9900B /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D51B74922D8E62100F9900B /* Event.swift */; };
 		4DAC503C22D7687D004DBBBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAC503B22D7687D004DBBBE /* AppDelegate.swift */; };
 		4DAC503E22D7687D004DBBBE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAC503D22D7687D004DBBBE /* ViewController.swift */; };
 		4DAC504122D7687D004DBBBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DAC503F22D7687D004DBBBE /* Main.storyboard */; };
@@ -16,10 +17,13 @@
 		4DAC505122D76FA3004DBBBE /* VC_SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAC505022D76FA3004DBBBE /* VC_SignUp.swift */; };
 		4DAC505322D77341004DBBBE /* VC_Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAC505222D77341004DBBBE /* VC_Events.swift */; };
 		4DAC505522D77772004DBBBE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4DAC505422D77772004DBBBE /* GoogleService-Info.plist */; };
+		4DAC505722D7B2EB004DBBBE /* PierSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4DAC505622D7B2EB004DBBBE /* PierSans-Regular.otf */; };
+		4DAC505A22D7B360004DBBBE /* Prime Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4DAC505922D7B360004DBBBE /* Prime Regular.otf */; };
 		55483B40E5A4CB85F9B75C8C /* Pods_LegendsApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87F2D3FB9DE71074BD0FC9B2 /* Pods_LegendsApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D51B74922D8E62100F9900B /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		4DAC503822D7687D004DBBBE /* LegendsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LegendsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DAC503B22D7687D004DBBBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DAC503D22D7687D004DBBBE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -31,6 +35,8 @@
 		4DAC505022D76FA3004DBBBE /* VC_SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC_SignUp.swift; sourceTree = "<group>"; };
 		4DAC505222D77341004DBBBE /* VC_Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC_Events.swift; sourceTree = "<group>"; };
 		4DAC505422D77772004DBBBE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4DAC505622D7B2EB004DBBBE /* PierSans-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PierSans-Regular.otf"; sourceTree = "<group>"; };
+		4DAC505922D7B360004DBBBE /* Prime Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Prime Regular.otf"; sourceTree = "<group>"; };
 		6B27B29092139D6B1D95BE09 /* Pods-LegendsApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LegendsApp.debug.xcconfig"; path = "Target Support Files/Pods-LegendsApp/Pods-LegendsApp.debug.xcconfig"; sourceTree = "<group>"; };
 		87F2D3FB9DE71074BD0FC9B2 /* Pods_LegendsApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LegendsApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA8D7BD16C02855D5435EE6 /* Pods-LegendsApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LegendsApp.release.xcconfig"; path = "Target Support Files/Pods-LegendsApp/Pods-LegendsApp.release.xcconfig"; sourceTree = "<group>"; };
@@ -55,6 +61,7 @@
 				4DAC503922D7687D004DBBBE /* Products */,
 				E60CC31E7270BF6C7BA478A3 /* Pods */,
 				C932273522D1573505764DE0 /* Frameworks */,
+				4DAC505822D7B2F1004DBBBE /* Fonts */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +81,7 @@
 				4DAC503D22D7687D004DBBBE /* ViewController.swift */,
 				4DAC505022D76FA3004DBBBE /* VC_SignUp.swift */,
 				4DAC505222D77341004DBBBE /* VC_Events.swift */,
+				4D51B74922D8E62100F9900B /* Event.swift */,
 				4DAC504522D7687F004DBBBE /* Assets.xcassets */,
 				4DAC504722D7687F004DBBBE /* LaunchScreen.storyboard */,
 				4DAC504A22D7687F004DBBBE /* Info.plist */,
@@ -81,6 +89,15 @@
 				4DAC505422D77772004DBBBE /* GoogleService-Info.plist */,
 			);
 			path = LegendsApp;
+			sourceTree = "<group>";
+		};
+		4DAC505822D7B2F1004DBBBE /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				4DAC505922D7B360004DBBBE /* Prime Regular.otf */,
+				4DAC505622D7B2EB004DBBBE /* PierSans-Regular.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		C932273522D1573505764DE0 /* Frameworks */ = {
@@ -97,7 +114,6 @@
 				6B27B29092139D6B1D95BE09 /* Pods-LegendsApp.debug.xcconfig */,
 				AAA8D7BD16C02855D5435EE6 /* Pods-LegendsApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -112,7 +128,7 @@
 				4DAC503422D7687D004DBBBE /* Sources */,
 				4DAC503522D7687D004DBBBE /* Frameworks */,
 				4DAC503622D7687D004DBBBE /* Resources */,
-				D36E502EBC3B94D76D4C643D /* [CP] Embed Pods Frameworks */,
+				E227E1D99EC3F9A377A12B26 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -161,10 +177,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DAC505722D7B2EB004DBBBE /* PierSans-Regular.otf in Resources */,
 				4DAC504922D7687F004DBBBE /* LaunchScreen.storyboard in Resources */,
 				4DAC505522D77772004DBBBE /* GoogleService-Info.plist in Resources */,
 				4DAC504622D7687F004DBBBE /* Assets.xcassets in Resources */,
 				4DAC504122D7687D004DBBBE /* Main.storyboard in Resources */,
+				4DAC505A22D7B360004DBBBE /* Prime Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,7 +211,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D36E502EBC3B94D76D4C643D /* [CP] Embed Pods Frameworks */ = {
+		E227E1D99EC3F9A377A12B26 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -221,6 +239,7 @@
 				4DAC504422D7687D004DBBBE /* LegendsApp.xcdatamodeld in Sources */,
 				4DAC503E22D7687D004DBBBE /* ViewController.swift in Sources */,
 				4DAC503C22D7687D004DBBBE /* AppDelegate.swift in Sources */,
+				4D51B74A22D8E62100F9900B /* Event.swift in Sources */,
 				4DAC505322D77341004DBBBE /* VC_Events.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -369,6 +388,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 65N3LVUA4F;
 				INFOPLIST_FILE = LegendsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -387,6 +407,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 65N3LVUA4F;
 				INFOPLIST_FILE = LegendsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

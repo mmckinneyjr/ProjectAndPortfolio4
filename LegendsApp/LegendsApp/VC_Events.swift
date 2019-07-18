@@ -7,24 +7,70 @@
 //
 
 import UIKit
+import Firebase
+
 
 class VC_Events: UIViewController {
-
+    
+    let db = Firestore.firestore()
+    var Events = [Event]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        
+        LoadEvents()
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func button(_ sender: Any) {
+        testLabel.text = Events[0].title
     }
-    */
-
+    
+    
+    @IBOutlet weak var testLabel: UILabel!
+    
+    
+    
+    
+    func LoadEvents(){
+        let group = DispatchGroup()
+        group.enter()
+        
+        DispatchQueue.main.async {
+            
+            
+            self.db.collection("Events").getDocuments() { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        
+                        let title = document.data()["title"] as? String ?? ""
+                        let details = document.data()["details"] as? String ?? ""
+                        
+                        print(title)
+                        self.Events.append(Event(_title: title, _details: details))
+                    }
+                }
+                group.leave()
+                
+            }
+            
+            
+            group.notify(queue: .main) {
+                print(self.Events[0].title)
+            }
+            
+        }
+        
+    }
+        
+        
+        
+        
+        
+        
+        
 }
