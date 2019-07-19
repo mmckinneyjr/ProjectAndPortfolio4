@@ -11,14 +11,12 @@ import FirebaseAuth
 
 class VC_SignUp: UIViewController, UITextFieldDelegate {
 
-    let navTitle = [
-        NSAttributedString.Key.foregroundColor: UIColor.white,
-        NSAttributedString.Key.font: UIFont(name: "Prime", size: 24)!]
+    let fonts = LegendFontClass()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UINavigationBar.appearance().titleTextAttributes = navTitle
+       UINavigationBar.appearance().titleTextAttributes = fonts.navTitle
         
         profileImageView.layer.borderWidth = 2
         profileImageView.layer.masksToBounds = false
@@ -40,10 +38,6 @@ class VC_SignUp: UIViewController, UITextFieldDelegate {
 
 
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var cancelButtonOutlet: UIBarButtonItem!
-    @IBAction func cancelButton(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
     
     
     @IBAction func submitButton(_ sender: Any) {
@@ -71,6 +65,9 @@ class VC_SignUp: UIViewController, UITextFieldDelegate {
     
     
     
+    @IBAction func cancelButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     
     
 }

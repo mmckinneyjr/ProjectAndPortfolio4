@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D02AF9222D94965003CB552 /* AttendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D02AF9122D94965003CB552 /* AttendingCell.swift */; };
 		4D51B74A22D8E62100F9900B /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D51B74922D8E62100F9900B /* Event.swift */; };
+		4D51B74C22D8F96100F9900B /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D51B74B22D8F96100F9900B /* EventCell.swift */; };
+		4D51B74F22D9120C00F9900B /* FontClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D51B74E22D9120C00F9900B /* FontClass.swift */; };
+		4D51B75022D915B700F9900B /* PierSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4D51B74D22D8FD0800F9900B /* PierSans-Bold.otf */; };
 		4DAC503C22D7687D004DBBBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAC503B22D7687D004DBBBE /* AppDelegate.swift */; };
 		4DAC503E22D7687D004DBBBE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAC503D22D7687D004DBBBE /* ViewController.swift */; };
 		4DAC504122D7687D004DBBBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DAC503F22D7687D004DBBBE /* Main.storyboard */; };
@@ -23,7 +27,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D02AF9122D94965003CB552 /* AttendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendingCell.swift; sourceTree = "<group>"; };
 		4D51B74922D8E62100F9900B /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		4D51B74B22D8F96100F9900B /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
+		4D51B74D22D8FD0800F9900B /* PierSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PierSans-Bold.otf"; sourceTree = "<group>"; };
+		4D51B74E22D9120C00F9900B /* FontClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontClass.swift; sourceTree = "<group>"; };
 		4DAC503822D7687D004DBBBE /* LegendsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LegendsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DAC503B22D7687D004DBBBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DAC503D22D7687D004DBBBE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -80,7 +88,10 @@
 				4DAC503B22D7687D004DBBBE /* AppDelegate.swift */,
 				4DAC503D22D7687D004DBBBE /* ViewController.swift */,
 				4DAC505022D76FA3004DBBBE /* VC_SignUp.swift */,
+				4D51B74E22D9120C00F9900B /* FontClass.swift */,
 				4DAC505222D77341004DBBBE /* VC_Events.swift */,
+				4D51B74B22D8F96100F9900B /* EventCell.swift */,
+				4D02AF9122D94965003CB552 /* AttendingCell.swift */,
 				4D51B74922D8E62100F9900B /* Event.swift */,
 				4DAC504522D7687F004DBBBE /* Assets.xcassets */,
 				4DAC504722D7687F004DBBBE /* LaunchScreen.storyboard */,
@@ -95,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				4DAC505922D7B360004DBBBE /* Prime Regular.otf */,
+				4D51B74D22D8FD0800F9900B /* PierSans-Bold.otf */,
 				4DAC505622D7B2EB004DBBBE /* PierSans-Regular.otf */,
 			);
 			path = Fonts;
@@ -182,6 +194,7 @@
 				4DAC505522D77772004DBBBE /* GoogleService-Info.plist in Resources */,
 				4DAC504622D7687F004DBBBE /* Assets.xcassets in Resources */,
 				4DAC504122D7687D004DBBBE /* Main.storyboard in Resources */,
+				4D51B75022D915B700F9900B /* PierSans-Bold.otf in Resources */,
 				4DAC505A22D7B360004DBBBE /* Prime Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,11 +249,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DAC505122D76FA3004DBBBE /* VC_SignUp.swift in Sources */,
+				4D02AF9222D94965003CB552 /* AttendingCell.swift in Sources */,
 				4DAC504422D7687D004DBBBE /* LegendsApp.xcdatamodeld in Sources */,
 				4DAC503E22D7687D004DBBBE /* ViewController.swift in Sources */,
 				4DAC503C22D7687D004DBBBE /* AppDelegate.swift in Sources */,
 				4D51B74A22D8E62100F9900B /* Event.swift in Sources */,
 				4DAC505322D77341004DBBBE /* VC_Events.swift in Sources */,
+				4D51B74C22D8F96100F9900B /* EventCell.swift in Sources */,
+				4D51B74F22D9120C00F9900B /* FontClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
