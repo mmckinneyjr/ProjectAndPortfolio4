@@ -49,4 +49,19 @@ class VC_EventDetails: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

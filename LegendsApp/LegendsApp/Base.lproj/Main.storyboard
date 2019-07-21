@@ -905,7 +905,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yuC-wd-DTD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1267" y="-574"/>
+            <point key="canvasLocation" x="1267" y="-581"/>
         </scene>
         <!--Events-->
         <scene sceneID="zj6-k2-Gvq">
@@ -947,7 +947,7 @@
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8j7-zM-tPT">
-                                        <rect key="frame" x="335" y="35" width="59" height="59"/>
+                                        <rect key="frame" x="355" y="45" width="39" height="39"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="8j7-zM-tPT" secondAttribute="height" multiplier="1:1" id="N8p-yN-cdm"/>
                                         </constraints>
@@ -962,12 +962,12 @@
                                     <constraint firstAttribute="trailing" secondItem="1V3-UQ-YV7" secondAttribute="trailing" id="Igg-G5-14J"/>
                                     <constraint firstItem="ocF-7R-JGV" firstAttribute="top" secondItem="PQP-zf-dOj" secondAttribute="top" constant="35" id="Khd-8C-NeE"/>
                                     <constraint firstItem="ocF-7R-JGV" firstAttribute="leading" secondItem="PQP-zf-dOj" secondAttribute="leading" constant="20" id="Mpz-Me-flQ"/>
-                                    <constraint firstItem="1V3-UQ-YV7" firstAttribute="top" secondItem="8j7-zM-tPT" secondAttribute="bottom" constant="5" id="Nhg-Ft-bu9"/>
+                                    <constraint firstItem="1V3-UQ-YV7" firstAttribute="top" secondItem="8j7-zM-tPT" secondAttribute="bottom" constant="15" id="Nhg-Ft-bu9"/>
                                     <constraint firstAttribute="trailing" secondItem="8j7-zM-tPT" secondAttribute="trailing" constant="20" id="UoB-tY-i25"/>
                                     <constraint firstAttribute="bottom" secondItem="1V3-UQ-YV7" secondAttribute="bottom" id="lEn-Le-AZp"/>
                                     <constraint firstAttribute="trailing" secondItem="xCK-28-c78" secondAttribute="trailing" id="my6-9a-sJw"/>
                                     <constraint firstItem="1V3-UQ-YV7" firstAttribute="leading" secondItem="PQP-zf-dOj" secondAttribute="leading" id="ngD-Fh-zEi"/>
-                                    <constraint firstItem="8j7-zM-tPT" firstAttribute="top" secondItem="PQP-zf-dOj" secondAttribute="top" constant="35" id="o07-0G-4dX"/>
+                                    <constraint firstItem="8j7-zM-tPT" firstAttribute="top" secondItem="PQP-zf-dOj" secondAttribute="top" constant="45" id="o07-0G-4dX"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mkK-Px-Cj8">
@@ -1323,10 +1323,10 @@
             </objects>
             <point key="canvasLocation" x="1266.6666666666667" y="137.94642857142856"/>
         </scene>
-        <!--Event Details-->
+        <!--View Controller-->
         <scene sceneID="pqz-wg-rjL">
             <objects>
-                <viewController id="IPH-iI-cjp" customClass="VC_EventDetails" customModule="LegendsApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="IPH-iI-cjp" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bII-be-HpL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1651,7 +1651,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uby-hO-lvk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1267" y="834"/>
+            <point key="canvasLocation" x="1266.6666666666667" y="833.70535714285711"/>
         </scene>
     </scenes>
     <resources>

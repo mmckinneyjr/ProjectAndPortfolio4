@@ -6,8 +6,8 @@
 //  Copyright © 2019 Mark Mckinney Jr. All rights reserved.
 //
 
+import Foundation
 import UIKit
-// import FirebaseAuth
 import Firebase
 
 

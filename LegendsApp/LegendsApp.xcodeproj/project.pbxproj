@@ -10,9 +10,10 @@
 		4D02AF9222D94965003CB552 /* AttendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D02AF9122D94965003CB552 /* AttendingCell.swift */; };
 		4D02AF9422D97EE7003CB552 /* VC_EventDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D02AF9322D97EE7003CB552 /* VC_EventDetails.swift */; };
 		4D02AF9622DA4EAC003CB552 /* VC_Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D02AF9522DA4EAC003CB552 /* VC_Account.swift */; };
+		4D02AF9A22DC0E84003CB552 /* DetailsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D02AF9922DC0E84003CB552 /* DetailsCollectionCell.swift */; };
 		4D51B74A22D8E62100F9900B /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D51B74922D8E62100F9900B /* Event.swift */; };
 		4D51B74C22D8F96100F9900B /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D51B74B22D8F96100F9900B /* EventCell.swift */; };
-		4D51B74F22D9120C00F9900B /* FontClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D51B74E22D9120C00F9900B /* FontClass.swift */; };
+		4D51B74F22D9120C00F9900B /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D51B74E22D9120C00F9900B /* GlobalFunctions.swift */; };
 		4D51B75022D915B700F9900B /* PierSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4D51B74D22D8FD0800F9900B /* PierSans-Bold.otf */; };
 		4DAC503C22D7687D004DBBBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAC503B22D7687D004DBBBE /* AppDelegate.swift */; };
 		4DAC503E22D7687D004DBBBE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAC503D22D7687D004DBBBE /* ViewController.swift */; };
@@ -32,10 +33,11 @@
 		4D02AF9122D94965003CB552 /* AttendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendingCell.swift; sourceTree = "<group>"; };
 		4D02AF9322D97EE7003CB552 /* VC_EventDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC_EventDetails.swift; sourceTree = "<group>"; };
 		4D02AF9522DA4EAC003CB552 /* VC_Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC_Account.swift; sourceTree = "<group>"; };
+		4D02AF9922DC0E84003CB552 /* DetailsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCollectionCell.swift; sourceTree = "<group>"; };
 		4D51B74922D8E62100F9900B /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		4D51B74B22D8F96100F9900B /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		4D51B74D22D8FD0800F9900B /* PierSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PierSans-Bold.otf"; sourceTree = "<group>"; };
-		4D51B74E22D9120C00F9900B /* FontClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontClass.swift; sourceTree = "<group>"; };
+		4D51B74E22D9120C00F9900B /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
 		4DAC503822D7687D004DBBBE /* LegendsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LegendsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DAC503B22D7687D004DBBBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DAC503D22D7687D004DBBBE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -89,10 +91,11 @@
 			isa = PBXGroup;
 			children = (
 				4DAC503F22D7687D004DBBBE /* Main.storyboard */,
+				4D02AF9922DC0E84003CB552 /* DetailsCollectionCell.swift */,
 				4DAC503B22D7687D004DBBBE /* AppDelegate.swift */,
 				4DAC503D22D7687D004DBBBE /* ViewController.swift */,
 				4DAC505022D76FA3004DBBBE /* VC_SignUp.swift */,
-				4D51B74E22D9120C00F9900B /* FontClass.swift */,
+				4D51B74E22D9120C00F9900B /* GlobalFunctions.swift */,
 				4DAC505222D77341004DBBBE /* VC_Events.swift */,
 				4D02AF9322D97EE7003CB552 /* VC_EventDetails.swift */,
 				4D02AF9522DA4EAC003CB552 /* VC_Account.swift */,
@@ -258,13 +261,14 @@
 				4D02AF9222D94965003CB552 /* AttendingCell.swift in Sources */,
 				4DAC504422D7687D004DBBBE /* LegendsApp.xcdatamodeld in Sources */,
 				4DAC503E22D7687D004DBBBE /* ViewController.swift in Sources */,
+				4D02AF9A22DC0E84003CB552 /* DetailsCollectionCell.swift in Sources */,
 				4DAC503C22D7687D004DBBBE /* AppDelegate.swift in Sources */,
 				4D51B74A22D8E62100F9900B /* Event.swift in Sources */,
 				4D02AF9622DA4EAC003CB552 /* VC_Account.swift in Sources */,
 				4D02AF9422D97EE7003CB552 /* VC_EventDetails.swift in Sources */,
 				4DAC505322D77341004DBBBE /* VC_Events.swift in Sources */,
 				4D51B74C22D8F96100F9900B /* EventCell.swift in Sources */,
-				4D51B74F22D9120C00F9900B /* FontClass.swift in Sources */,
+				4D51B74F22D9120C00F9900B /* GlobalFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

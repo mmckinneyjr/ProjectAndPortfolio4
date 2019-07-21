@@ -12,15 +12,21 @@ import Firebase
 
 class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let fonts = LegendFontClass()
+    let globalFunc = GlobalFunctions()
     
     let db = Firestore.firestore()
     var Events = [Event]()
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UINavigationBar.appearance().titleTextAttributes = fonts.navTitle
+        loadProfilePhoto()
+        
+        
+        
+        UINavigationBar.appearance().titleTextAttributes = globalFunc.navTitle
         
         LoadEvents()
         
@@ -36,7 +42,6 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //UI ELEMENTS
     @IBOutlet weak var eventsTableView: UITableView!
-    
     @IBOutlet weak var loggedInUserImage: UIImageView!
     
     
@@ -116,8 +121,34 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    
+    
 
-
+    func loadProfilePhoto(){
+        guard let UID = Auth.auth().currentUser?.uid else { return }
+        
+        let docRef = db.collection("Users").document(UID)
+        docRef.getDocument(source: .cache) { (document, error) in
+            if let document = document {
+                let imageProperty = document.get("profileImage") as! String
+                
+                if imageProperty.contains("http"),
+                    let url = URL(string: imageProperty),
+                    var urlComp = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+                    urlComp.scheme = "https"
+                    if let secureURL = urlComp.url {
+                        let imageData = try! Data.init(contentsOf: secureURL)
+                        self.globalFunc.roundImage(self.loggedInUserImage)
+                        self.loggedInUserImage.image = UIImage(data: imageData)
+                        
+                    }
+                }
+                
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
     
 
     

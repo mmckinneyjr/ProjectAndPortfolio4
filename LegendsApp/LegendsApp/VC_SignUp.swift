@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FirebaseAuth
+//import FirebaseAuth
 import Firebase
 
 
@@ -17,7 +17,7 @@ import Firebase
 class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var pImageURL = ""
-    let fonts = LegendFontClass()
+    let globalFunc = GlobalFunctions()
     var imagePicker = UIImagePickerController()
     
     
@@ -25,13 +25,9 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UINavigationBar.appearance().titleTextAttributes = fonts.navTitle
+        UINavigationBar.appearance().titleTextAttributes = globalFunc.navTitle
         
-        profileImageView.layer.borderWidth = 2
-        profileImageView.layer.masksToBounds = false
-        profileImageView.layer.borderColor = UIColor.lightGray.cgColor
-        profileImageView.layer.cornerRadius = 75
-        profileImageView.clipsToBounds = true
+        globalFunc.roundImage(profileImageView)
         
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
@@ -117,9 +113,7 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
                     print("Error creating user: \(error!.localizedDescription)")
                 }
             }
-        }
-        
-        
+        }   
     }
     
     //Upload Profile Image
@@ -146,24 +140,6 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     
     
     func saveProfile(emailAddress: String, firstName: String, lastName: String, profileImageURL: String, uid: String) {
-        
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
-//        let db = Firestore.firestore()
-//        let DocRef = db.collection("Users").document(uid)
-//        DocRef.setData([
-//            "emailAddress" : emailAddress,
-//            "firstName" : firstName,
-//            "lastName" : lastName,
-//            "profileImage" : profileImageURL.absoluteURL
-//        ]) { error in
-//            if let error = error {
-//                print("Error writing document: \(error)")
-//            } else {
-//                print("Document successfully written!")
-//            }
-//        }
-//
-
         let db = Firestore.firestore()
         // Add a new document in collection "cities"
         db.collection("Users").document(uid).setData([
@@ -178,8 +154,6 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
                 print("Document successfully written!")
             }
         }
-        
-        
     }
     
     
