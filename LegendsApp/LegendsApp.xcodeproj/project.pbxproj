@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4D02AF9222D94965003CB552 /* AttendingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D02AF9122D94965003CB552 /* AttendingCell.swift */; };
+		4D02AF9422D97EE7003CB552 /* VC_EventDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D02AF9322D97EE7003CB552 /* VC_EventDetails.swift */; };
+		4D02AF9622DA4EAC003CB552 /* VC_Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D02AF9522DA4EAC003CB552 /* VC_Account.swift */; };
 		4D51B74A22D8E62100F9900B /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D51B74922D8E62100F9900B /* Event.swift */; };
 		4D51B74C22D8F96100F9900B /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D51B74B22D8F96100F9900B /* EventCell.swift */; };
 		4D51B74F22D9120C00F9900B /* FontClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D51B74E22D9120C00F9900B /* FontClass.swift */; };
@@ -28,6 +30,8 @@
 
 /* Begin PBXFileReference section */
 		4D02AF9122D94965003CB552 /* AttendingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttendingCell.swift; sourceTree = "<group>"; };
+		4D02AF9322D97EE7003CB552 /* VC_EventDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC_EventDetails.swift; sourceTree = "<group>"; };
+		4D02AF9522DA4EAC003CB552 /* VC_Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC_Account.swift; sourceTree = "<group>"; };
 		4D51B74922D8E62100F9900B /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		4D51B74B22D8F96100F9900B /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		4D51B74D22D8FD0800F9900B /* PierSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PierSans-Bold.otf"; sourceTree = "<group>"; };
@@ -90,6 +94,8 @@
 				4DAC505022D76FA3004DBBBE /* VC_SignUp.swift */,
 				4D51B74E22D9120C00F9900B /* FontClass.swift */,
 				4DAC505222D77341004DBBBE /* VC_Events.swift */,
+				4D02AF9322D97EE7003CB552 /* VC_EventDetails.swift */,
+				4D02AF9522DA4EAC003CB552 /* VC_Account.swift */,
 				4D51B74B22D8F96100F9900B /* EventCell.swift */,
 				4D02AF9122D94965003CB552 /* AttendingCell.swift */,
 				4D51B74922D8E62100F9900B /* Event.swift */,
@@ -254,6 +260,8 @@
 				4DAC503E22D7687D004DBBBE /* ViewController.swift in Sources */,
 				4DAC503C22D7687D004DBBBE /* AppDelegate.swift in Sources */,
 				4D51B74A22D8E62100F9900B /* Event.swift in Sources */,
+				4D02AF9622DA4EAC003CB552 /* VC_Account.swift in Sources */,
+				4D02AF9422D97EE7003CB552 /* VC_EventDetails.swift in Sources */,
 				4DAC505322D77341004DBBBE /* VC_Events.swift in Sources */,
 				4D51B74C22D8F96100F9900B /* EventCell.swift in Sources */,
 				4D51B74F22D9120C00F9900B /* FontClass.swift in Sources */,

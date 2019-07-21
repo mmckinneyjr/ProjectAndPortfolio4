@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import FirebaseAuth
+// import FirebaseAuth
+import Firebase
 
 
 
@@ -18,6 +19,18 @@ class ViewController: UIViewController, UITextFieldDelegate {
         usernameTextField.delegate = self
         passwordTextField.delegate = self
 
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        /*
+        - If user is already signed in they will be take the events screen
+        - Once user is signed they will need to go to the Accounts screen and signout in
+          order to be able to return to the main sign in / sign up screen
+        */
+        if let user = Auth.auth().currentUser{
+            self.performSegue(withIdentifier: "signUpToEventsSegue", sender: self)
+        }
     }
     
     //Sets status bar content to white
@@ -41,11 +54,11 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBAction func loginButton(_ sender: Any) {
         if let email = usernameTextField.text, let password = passwordTextField.text{
             Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-                if let u = user {
+                if error == nil && user != nil {
                     self.performSegue(withIdentifier: "signInSegue", sender: self)
                 }
                 else {
-                    
+                    print("Error logging in: \(error!.localizedDescription)")
                 }
             }
         }

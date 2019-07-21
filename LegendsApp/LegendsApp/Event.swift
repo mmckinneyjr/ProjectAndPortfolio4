@@ -17,15 +17,21 @@ class Event{
     var bgImageString: String
     var month: String
     var date: String
+    var year: String = ""
     var attendingGuests: [String]
+    var moreDetails: String
 
+    var fullDate: String{
+        return "\(date) \(month) \(year)"
+    }
     
     
-    init (_title: String, _details: String, _bgImage: String, _dateString: String, _attending: [String]) {
+    init (_title: String, _details: String, _bgImage: String, _dateString: String, _attending: [String], _moreDetails: String) {
         self.title = _title
         self.details = _details
         self.bgImageString = _bgImage
         self.attendingGuests = _attending
+        self.moreDetails = _moreDetails
         
         if bgImageString.contains("http"),
             let url = URL(string: bgImageString),
@@ -44,9 +50,11 @@ class Event{
         
 
         formatter.dateFormat = "MMM"
-        month = formatter.string(from: dateString!).uppercased()
+        month = formatter.string(from: dateString!).uppercased() 
         formatter.dateFormat = "dd"
         date = formatter.string(from: dateString!)
+        formatter.dateFormat = "yyyy"
+        year = formatter.string(from: dateString!)
 
 //        month = "123"
 //        date = "456"

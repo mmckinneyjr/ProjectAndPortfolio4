@@ -37,6 +37,7 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //UI ELEMENTS
     @IBOutlet weak var eventsTableView: UITableView!
     
+    @IBOutlet weak var loggedInUserImage: UIImageView!
     
     
     
@@ -57,10 +58,11 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         let details = document.data()["details"] as? String ?? ""
                         let bgImage = document.data()["image"] as? String ?? ""
                         let date = document.data()["date"] as? String ?? ""
+                        let moreDetails = document.data()["moreDetails"] as? String ?? ""
                         let attendingGuests = document["attending"] as? Array ?? [""]
 
                         
-                        self.Events.append(Event(_title: title, _details: details, _bgImage: bgImage, _dateString: date, _attending: attendingGuests))
+                        self.Events.append(Event(_title: title, _details: details, _bgImage: bgImage, _dateString: date, _attending: attendingGuests, _moreDetails: moreDetails))
                     }
                 }
                 group.leave()
@@ -68,9 +70,9 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             group.notify(queue: .main) {
                 self.eventsTableView.reloadData()
-                for i in self.Events {
-                    print("\(i): \(i.title) - \(i.bgImageString) - \(i.date) - Details: \(i.details)\n")
-                }
+//                for i in self.Events {
+//                    print("\(i): \(i.moreDetails)\n")
+//                }
             }
         }
     }
@@ -102,7 +104,17 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
 
  
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = eventsTableView.indexPathForSelectedRow {
+            let destination = segue.destination as? VC_EventDetails
+            destination?.detailsBGImage = Events[indexPath.row].bgImage
+            destination?.detailsDate = Events[indexPath.row].fullDate
+            destination?.detailsTitle = Events[indexPath.row].title
+            destination?.detailsDetails = Events[indexPath.row].details
+            destination?.detailsMoreDetails = Events[indexPath.row].moreDetails
+            eventsTableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
     
 
 
