@@ -11,10 +11,17 @@
 		4D02AF9422D97EE7003CB552 /* VC_EventDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D02AF9322D97EE7003CB552 /* VC_EventDetails.swift */; };
 		4D02AF9622DA4EAC003CB552 /* VC_Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D02AF9522DA4EAC003CB552 /* VC_Account.swift */; };
 		4D02AF9A22DC0E84003CB552 /* DetailsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D02AF9922DC0E84003CB552 /* DetailsCollectionCell.swift */; };
+		4D04C3BD22DD163E00F654F6 /* VC_FoodMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D04C3BC22DD163E00F654F6 /* VC_FoodMenu.swift */; };
+		4D04C3BF22DD222100F654F6 /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D04C3BE22DD222100F654F6 /* FoodItem.swift */; };
+		4D04C3C122DD3A1E00F654F6 /* FoodMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D04C3C022DD3A1E00F654F6 /* FoodMenuCell.swift */; };
+		4D04C3C322DD590C00F654F6 /* VC_Admin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D04C3C222DD590C00F654F6 /* VC_Admin.swift */; };
+		4D04C3C622DD593600F654F6 /* VC_Admin_FoodMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D04C3C522DD593600F654F6 /* VC_Admin_FoodMenu.swift */; };
 		4D51B74A22D8E62100F9900B /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D51B74922D8E62100F9900B /* Event.swift */; };
 		4D51B74C22D8F96100F9900B /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D51B74B22D8F96100F9900B /* EventCell.swift */; };
 		4D51B74F22D9120C00F9900B /* GlobalFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D51B74E22D9120C00F9900B /* GlobalFunctions.swift */; };
 		4D51B75022D915B700F9900B /* PierSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4D51B74D22D8FD0800F9900B /* PierSans-Bold.otf */; };
+		4D75D47422DC1E5900857EC1 /* DetailsCollectionTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D75D47322DC1E5900857EC1 /* DetailsCollectionTop.swift */; };
+		4D75D47622DC267800857EC1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D75D47522DC267800857EC1 /* User.swift */; };
 		4DAC503C22D7687D004DBBBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAC503B22D7687D004DBBBE /* AppDelegate.swift */; };
 		4DAC503E22D7687D004DBBBE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DAC503D22D7687D004DBBBE /* ViewController.swift */; };
 		4DAC504122D7687D004DBBBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4DAC503F22D7687D004DBBBE /* Main.storyboard */; };
@@ -34,10 +41,17 @@
 		4D02AF9322D97EE7003CB552 /* VC_EventDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC_EventDetails.swift; sourceTree = "<group>"; };
 		4D02AF9522DA4EAC003CB552 /* VC_Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC_Account.swift; sourceTree = "<group>"; };
 		4D02AF9922DC0E84003CB552 /* DetailsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCollectionCell.swift; sourceTree = "<group>"; };
+		4D04C3BC22DD163E00F654F6 /* VC_FoodMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC_FoodMenu.swift; sourceTree = "<group>"; };
+		4D04C3BE22DD222100F654F6 /* FoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
+		4D04C3C022DD3A1E00F654F6 /* FoodMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodMenuCell.swift; sourceTree = "<group>"; };
+		4D04C3C222DD590C00F654F6 /* VC_Admin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC_Admin.swift; sourceTree = "<group>"; };
+		4D04C3C522DD593600F654F6 /* VC_Admin_FoodMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VC_Admin_FoodMenu.swift; sourceTree = "<group>"; };
 		4D51B74922D8E62100F9900B /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		4D51B74B22D8F96100F9900B /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		4D51B74D22D8FD0800F9900B /* PierSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PierSans-Bold.otf"; sourceTree = "<group>"; };
 		4D51B74E22D9120C00F9900B /* GlobalFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalFunctions.swift; sourceTree = "<group>"; };
+		4D75D47322DC1E5900857EC1 /* DetailsCollectionTop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCollectionTop.swift; sourceTree = "<group>"; };
+		4D75D47522DC267800857EC1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4DAC503822D7687D004DBBBE /* LegendsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LegendsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4DAC503B22D7687D004DBBBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4DAC503D22D7687D004DBBBE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +82,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D04C3C422DD591000F654F6 /* Admin */ = {
+			isa = PBXGroup;
+			children = (
+				4D04C3C222DD590C00F654F6 /* VC_Admin.swift */,
+				4D04C3C522DD593600F654F6 /* VC_Admin_FoodMenu.swift */,
+			);
+			path = Admin;
+			sourceTree = "<group>";
+		};
 		4DAC502F22D7687D004DBBBE = {
 			isa = PBXGroup;
 			children = (
@@ -91,17 +114,23 @@
 			isa = PBXGroup;
 			children = (
 				4DAC503F22D7687D004DBBBE /* Main.storyboard */,
+				4D04C3BC22DD163E00F654F6 /* VC_FoodMenu.swift */,
+				4D04C3C022DD3A1E00F654F6 /* FoodMenuCell.swift */,
+				4D04C3BE22DD222100F654F6 /* FoodItem.swift */,
 				4D02AF9922DC0E84003CB552 /* DetailsCollectionCell.swift */,
+				4D75D47322DC1E5900857EC1 /* DetailsCollectionTop.swift */,
 				4DAC503B22D7687D004DBBBE /* AppDelegate.swift */,
 				4DAC503D22D7687D004DBBBE /* ViewController.swift */,
 				4DAC505022D76FA3004DBBBE /* VC_SignUp.swift */,
 				4D51B74E22D9120C00F9900B /* GlobalFunctions.swift */,
 				4DAC505222D77341004DBBBE /* VC_Events.swift */,
 				4D02AF9322D97EE7003CB552 /* VC_EventDetails.swift */,
+				4D75D47522DC267800857EC1 /* User.swift */,
 				4D02AF9522DA4EAC003CB552 /* VC_Account.swift */,
 				4D51B74B22D8F96100F9900B /* EventCell.swift */,
 				4D02AF9122D94965003CB552 /* AttendingCell.swift */,
 				4D51B74922D8E62100F9900B /* Event.swift */,
+				4D04C3C422DD591000F654F6 /* Admin */,
 				4DAC504522D7687F004DBBBE /* Assets.xcassets */,
 				4DAC504722D7687F004DBBBE /* LaunchScreen.storyboard */,
 				4DAC504A22D7687F004DBBBE /* Info.plist */,
@@ -257,17 +286,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D04C3C622DD593600F654F6 /* VC_Admin_FoodMenu.swift in Sources */,
+				4D04C3BF22DD222100F654F6 /* FoodItem.swift in Sources */,
+				4D75D47422DC1E5900857EC1 /* DetailsCollectionTop.swift in Sources */,
 				4DAC505122D76FA3004DBBBE /* VC_SignUp.swift in Sources */,
 				4D02AF9222D94965003CB552 /* AttendingCell.swift in Sources */,
 				4DAC504422D7687D004DBBBE /* LegendsApp.xcdatamodeld in Sources */,
 				4DAC503E22D7687D004DBBBE /* ViewController.swift in Sources */,
+				4D04C3C322DD590C00F654F6 /* VC_Admin.swift in Sources */,
 				4D02AF9A22DC0E84003CB552 /* DetailsCollectionCell.swift in Sources */,
+				4D04C3BD22DD163E00F654F6 /* VC_FoodMenu.swift in Sources */,
+				4D75D47622DC267800857EC1 /* User.swift in Sources */,
 				4DAC503C22D7687D004DBBBE /* AppDelegate.swift in Sources */,
 				4D51B74A22D8E62100F9900B /* Event.swift in Sources */,
 				4D02AF9622DA4EAC003CB552 /* VC_Account.swift in Sources */,
 				4D02AF9422D97EE7003CB552 /* VC_EventDetails.swift in Sources */,
 				4DAC505322D77341004DBBBE /* VC_Events.swift in Sources */,
 				4D51B74C22D8F96100F9900B /* EventCell.swift in Sources */,
+				4D04C3C122DD3A1E00F654F6 /* FoodMenuCell.swift in Sources */,
 				4D51B74F22D9120C00F9900B /* GlobalFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

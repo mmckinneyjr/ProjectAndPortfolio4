@@ -8,5 +8,6 @@ pod 'Firebase/Auth'
 pod 'Firebase/Storage'
 pod 'Firebase/Core'
 pod 'Firebase/Firestore'
+pod 'FirebaseUI/Storage'
 
 end

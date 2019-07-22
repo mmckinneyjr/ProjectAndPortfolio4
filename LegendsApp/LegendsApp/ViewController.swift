@@ -21,14 +21,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     }
     
+    
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        /*
-        - If user is already signed in they will be take the events screen
-        - Once user is signed they will need to go to the Accounts screen and signout in
-          order to be able to return to the main sign in / sign up screen
-        */
-        if let user = Auth.auth().currentUser{
+
+        let user = Auth.auth().currentUser
+        if user != nil {
             self.performSegue(withIdentifier: "signUpToEventsSegue", sender: self)
         }
     }

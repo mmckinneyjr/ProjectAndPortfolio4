@@ -27,5 +27,7 @@ class GlobalFunctions {
         image.clipsToBounds = true
     }
     
+
+    
     
 }

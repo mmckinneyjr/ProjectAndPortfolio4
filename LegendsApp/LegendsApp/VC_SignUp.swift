@@ -16,7 +16,7 @@ import Firebase
 
 class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var pImageURL = ""
+    var pImageURL:String? = nil
     let globalFunc = GlobalFunctions()
     var imagePicker = UIImagePickerController()
     
@@ -92,25 +92,37 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     
     
     
-    func HandleSignUp(){
+    func HandleSignUp() {
         
         if let firstName = firstNameTextField.text,
             let lastName = lastNameTextField.text,
             let email = emailAddressTextField.text,
             let password = passwordTextField.text {
             
-            Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-                if error == nil && user != nil {
-                    print("User Created")
-                    
-                    guard let UID = Auth.auth().currentUser?.uid else { return }
-
-                    self.uploadProfileImage(tempImage: self.profileImageView.image!, uid: UID, email: email, fName: firstName, lName: lastName)
-                    
-                    
-                }
-                else {
-                    print("Error creating user: \(error!.localizedDescription)")
+            //Alert if all fields are not filled
+            if firstName.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty{
+                self.Alert(title: "Invalid", message: "Please make sure all fields are filled")
+            }
+            //Alert if user does not upload a profile image
+            else if profileImageView == nil || profileImageView.image == UIImage(named: "uploadImage") {
+                self.Alert(title: "Invalid", message: "Please make sure you upload a profile photo")
+            }
+                
+            else {
+                Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+                    if error == nil && user != nil {
+                        
+                        guard let UID = Auth.auth().currentUser?.uid else { return }
+                        self.uploadProfileImage(tempImage: self.profileImageView.image!, uid: UID, email: email, fName: firstName, lName: lastName)
+                        
+                        print("User Created")
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    else {
+                        //Alert if user email already taked, password too short.
+                        self.Alert(title: "Invalid", message: error!.localizedDescription)
+                        print("Error creating user: \(error!.localizedDescription)")
+                    }
                 }
             }
         }   
@@ -132,16 +144,16 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
             riversRef.downloadURL { (url, error) in
                 guard url != nil else { return }
                 self.pImageURL = url!.absoluteString
-                print(self.pImageURL)
+                print(self.pImageURL!)
                 self.saveProfile(emailAddress: email, firstName: fName, lastName: lName, profileImageURL: url!.absoluteString, uid: uid)
             }
         }
     }
     
-    
+    //Saves profile information to Users collection in database
     func saveProfile(emailAddress: String, firstName: String, lastName: String, profileImageURL: String, uid: String) {
         let db = Firestore.firestore()
-        // Add a new document in collection "cities"
+        // Add a new document in collection "Users"
         db.collection("Users").document(uid).setData([
             "emailAddress" : emailAddress,
             "firstName" : firstName,
@@ -155,6 +167,16 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
             }
         }
     }
+    
+    
+    //Alert Function
+    func Alert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(okButton)
+        present(alert, animated: true, completion: nil)
+    }
+    
     
     
     

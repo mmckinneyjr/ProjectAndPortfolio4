@@ -10,15 +10,19 @@ import UIKit
 import Firebase
 
 class VC_Account: UIViewController {
+    
+    let globalFunc = GlobalFunctions()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        globalFunc.roundImage(profileImageView)
+        
     }
     
 
- 
+    @IBOutlet weak var profileImageView: UIImageView!
+    
     
     @IBAction func signOutButton(_ target: UIBarButtonItem) {
         try! Auth.auth().signOut()

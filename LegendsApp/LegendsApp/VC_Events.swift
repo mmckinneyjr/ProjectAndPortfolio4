@@ -43,6 +43,7 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //UI ELEMENTS
     @IBOutlet weak var eventsTableView: UITableView!
     @IBOutlet weak var loggedInUserImage: UIImageView!
+    @IBOutlet weak var loadingIndicatorView: UIView!
     
     
     
@@ -52,6 +53,8 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
         group.enter()
         
         DispatchQueue.main.async {
+            self.loadingIndicatorView.isHidden = false
+            
             
             self.db.collection("Events").getDocuments() { (querySnapshot, err) in
                 if let err = err {
@@ -65,9 +68,10 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         let date = document.data()["date"] as? String ?? ""
                         let moreDetails = document.data()["moreDetails"] as? String ?? ""
                         let attendingGuests = document["attending"] as? Array ?? [""]
+                        let eventTitle = document.documentID
 
                         
-                        self.Events.append(Event(_title: title, _details: details, _bgImage: bgImage, _dateString: date, _attending: attendingGuests, _moreDetails: moreDetails))
+                        self.Events.append(Event(_title: title, _details: details, _bgImage: bgImage, _dateString: date, _attending: attendingGuests, _moreDetails: moreDetails, _eventTitle: eventTitle))
                     }
                 }
                 group.leave()
@@ -75,9 +79,10 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             group.notify(queue: .main) {
                 self.eventsTableView.reloadData()
-//                for i in self.Events {
-//                    print("\(i): \(i.moreDetails)\n")
-//                }
+                self.loadingIndicatorView.isHidden = true
+
+                self.loadProfilePhoto()
+
             }
         }
     }
@@ -102,7 +107,7 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.cellBG.image = Events[indexPath.row].bgImage
         cell.monthLabel.text = Events[indexPath.row].month
         cell.dateLabel.text = Events[indexPath.row].date
-
+        
         cell.attendingCount = Events[indexPath.row].attendingGuests.count
         
         return cell
@@ -117,7 +122,12 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
             destination?.detailsTitle = Events[indexPath.row].title
             destination?.detailsDetails = Events[indexPath.row].details
             destination?.detailsMoreDetails = Events[indexPath.row].moreDetails
+            destination?.attendingUID = Events[indexPath.row].attendingGuests
+            destination?.eventTitle = Events[indexPath.row].eventTitle
             eventsTableView.deselectRow(at: indexPath, animated: true)
+            
+            
+            print("EVENT TITLE: \(Events[indexPath.row].eventTitle). COUNT: \(Events[indexPath.row].attendingGuests.count)")
         }
     }
     
