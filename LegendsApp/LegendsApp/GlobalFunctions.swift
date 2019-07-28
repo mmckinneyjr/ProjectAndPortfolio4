@@ -27,6 +27,7 @@ class GlobalFunctions {
         image.layer.borderColor = UIColor.lightGray.cgColor
         image.layer.cornerRadius = image.frame.height/2
         image.clipsToBounds = true
+        image.contentMode = .scaleAspectFill
     }
     
     func roundImage2(_ image: UIImageView){
@@ -36,8 +37,7 @@ class GlobalFunctions {
         image.layer.cornerRadius = 5
         image.clipsToBounds = true
         image.layer.borderColor = UIColor(red:225/255, green:107/255, blue:55/255, alpha: 1).cgColor
-        image.contentMode = UIView.ContentMode.scaleToFill
-
+        image.contentMode = .scaleAspectFill
     }
     
     func roundImage3(_ image: UIImageView){
@@ -47,6 +47,7 @@ class GlobalFunctions {
         image.layer.cornerRadius = image.frame.height/2
         image.clipsToBounds = true
         image.layer.borderColor = UIColor(red:225/255, green:107/255, blue:55/255, alpha: 1).cgColor
+        image.contentMode = .scaleAspectFill
     }
     
     func ImageBorder(_ image: UIImageView){
@@ -55,6 +56,7 @@ class GlobalFunctions {
         image.layer.borderColor = UIColor.lightGray.cgColor
         image.clipsToBounds = true
         image.layer.borderColor = UIColor.lightGray.cgColor
+        image.contentMode = .scaleAspectFill
     }
     
     func profileRoundImage(_ image: UIImageView){
@@ -63,26 +65,74 @@ class GlobalFunctions {
         image.layer.borderColor = UIColor.lightGray.cgColor
         image.layer.cornerRadius = image.frame.height/2
         image.clipsToBounds = true
+        image.contentMode = .scaleAspectFill
     }
+    
+    
+    
+    
 
-    func loadProfilePhoto(_ image: UIImageView){
-        guard let UID = user else { return }
-        
-        let docRef = db.collection("Users").document(UID)
-        docRef.getDocument(source: .cache) { (document, error) in
-            if let document = document {
-                let imageProperty = document.get("profileImage") as! String
-                
-                let httpsReference = self.storage.reference(forURL: imageProperty)
-                let placeholderImage = UIImage(named: "placeholder.jpg")
-                image.sd_setImage(with: httpsReference, placeholderImage: placeholderImage)
-                self.profileRoundImage(image)
-                
-            } else {
-                print("Document does not exist")
+    
+    
+    func loadProfilePhoto(_ proImage: UIImageView){
+        if user != nil {
+            
+          
+            let docRef = db.collection("Users").document(user!)
+            
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    
+                    let imageUrl = document.data()?["profileImage"] as? String ?? ""
+
+                    if imageUrl.contains("http"),
+                        let url = URL(string: imageUrl),
+                        var urlComp = URLComponents(url: url, resolvingAgainstBaseURL: false) {
+                        urlComp.scheme = "https"
+                        if let secureURL = urlComp.url {
+                            guard let imageData = try? Data.init(contentsOf: secureURL) else { return }
+                            proImage.image = UIImage(data: imageData)
+                            self.profileRoundImage(proImage)
+                        }
+                    }
+                } else {
+                    print("Document does not exist")
+                }
             }
+            
+            
+            
+            
+            
         }
     }
+    
+    
+    
+    
+    
+    
+    
+//    func loadProfilePhoto(_ image: UIImageView){
+//        if user != nil {
+//
+//            let docRef = db.collection("Users").document(user!)
+//            docRef.getDocument(source: .server) { (document, error) in
+//                if let document = document {
+//                    guard let imageProperty = document.get("profileImage") as? String else { return }
+//
+//                    let httpsReference = self.storage.reference(forURL: imageProperty)
+//                    let placeholderImage = UIImage(named: "attendingPlaceHolder")
+//
+//                    image.sd_setImage(with: httpsReference, placeholderImage: placeholderImage)
+//                    self.profileRoundImage(image)
+//
+//                } else {
+//                    print("Document does not exist")
+//                }
+//            }
+//        }
+//    }
     
     
 }

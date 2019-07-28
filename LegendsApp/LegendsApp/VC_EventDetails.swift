@@ -30,6 +30,9 @@ class VC_EventDetails: UIViewController, UICollectionViewDataSource, UICollectio
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UINavigationBar.appearance().titleTextAttributes = globalFunc.navTitle
+
         BGImage.image = detailsBGImage        
         
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
@@ -39,7 +42,11 @@ class VC_EventDetails: UIViewController, UICollectionViewDataSource, UICollectio
         blurView.autoresizesSubviews = true
         BGImage.addSubview(blurView)
         loadAttending()
-        
+    }
+    
+    //Sets status bar content to white
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     
@@ -70,7 +77,6 @@ class VC_EventDetails: UIViewController, UICollectionViewDataSource, UICollectio
                     else { self.attending = false }
                     self.detailsCollectionView.reloadData()
 
-                    print("Current data: \(data)")
         }
     }
     
@@ -91,7 +97,6 @@ class VC_EventDetails: UIViewController, UICollectionViewDataSource, UICollectio
         
         if attending == true {
             let attendingRef = db.collection("Events").document(eventTitle)
-            // Atomically add a new region to the "regions" array field.
             attendingRef.updateData([
                 "attending": FieldValue.arrayRemove([user!])
                 ])
@@ -101,7 +106,6 @@ class VC_EventDetails: UIViewController, UICollectionViewDataSource, UICollectio
             
         else if attending == false {
             let attendingRef = db.collection("Events").document(eventTitle)
-            // Atomically add a new region to the "regions" array field.
             attendingRef.updateData([
                 "attending": FieldValue.arrayUnion([user!])
                 ])
@@ -121,18 +125,45 @@ class VC_EventDetails: UIViewController, UICollectionViewDataSource, UICollectio
         return attendingUID.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell{
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = detailsCollectionView.dequeueReusableCell(withReuseIdentifier: "detailsCollectionCell", for: indexPath) as! DetailsCollectionCell
         
 
         let storage = Storage.storage()
+        // Create a storage reference from our storage service
         let storageRef = storage.reference()
+        // Reference to an image file in Firebase Storage
         let reference = storageRef.child("UserProfileImages/\(attendingUID[indexPath.row])")
-        let placeholderImage = UIImage(named: "attendingPlaceHolder")
+                // Placeholder image
+                let placeholderImage = UIImage(named: "attendingPlaceHolder")
+                // Load the image using SDWebImage
+        
+                cell.cellImage.sd_setImage(with: reference, placeholderImage: placeholderImage)
+                globalFunc.roundImage3(cell.cellImage!)
 
-        cell.cellImage.sd_setImage(with: reference, placeholderImage: placeholderImage)
-        globalFunc.roundImage2(cell.cellImage)
-
+//        let islandRef = storageRef.child("UserProfileImages/\(attendingUID[indexPath.row])")
+//
+//        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+//        islandRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+//            if let error = error {
+//                print("error loading attending: \(error)")
+//            } else {
+//                // Data for "images/island.jpg" is returned
+//                cell.cellImage.image = UIImage(data: data!)
+//                self.globalFunc.roundImage3(cell.cellImage)
+//
+//            }
+//        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         return cell
     }

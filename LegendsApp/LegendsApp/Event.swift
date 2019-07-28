@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Event{
+class Event {
     
     var title: String = ""
     var details: String = ""
@@ -41,8 +41,9 @@ class Event{
             var urlComp = URLComponents(url: url, resolvingAgainstBaseURL: false) {
             urlComp.scheme = "https"
             if let secureURL = urlComp.url {
-                let imageData = try! Data.init(contentsOf: secureURL)
+                if let imageData = try? Data.init(contentsOf: secureURL) {
                 self.bgImage = UIImage(data: imageData)
+                }
             }
         }
         
@@ -64,8 +65,7 @@ class Event{
     
     
     
-    
-    
+
     
     
 }

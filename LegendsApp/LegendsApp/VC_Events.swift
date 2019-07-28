@@ -26,16 +26,9 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewDidLoad()
         LoadEvents()
         globalFunc.loadProfilePhoto(loggedInUserImage)
-        
-        
-        
+
         UINavigationBar.appearance().titleTextAttributes = globalFunc.navTitle
-        
-        
-        
-        
     }
-    
     
     //Sets status bar content to white
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -55,11 +48,10 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let group = DispatchGroup()
         group.enter()
         
-        DispatchQueue.main.async {
             self.loadingIndicatorView.isHidden = false
             
             
-            self.db.collection("Events").getDocuments() { (querySnapshot, err) in
+            self.db.collection("Events").getDocuments(source: .default) { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
@@ -74,14 +66,14 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         let attendingGuests = document["attending"] as? Array ?? [""]
                         let eventTitle = document.documentID
                         
-                        
                         self.Events.append(Event(_title: title, _details: details, _bgImage: bgImage, _dateString: date, _attending: attendingGuests, _moreDetails: moreDetails, _eventTitle: eventTitle))
                     }
                 }
                 group.leave()
-            }
+            
             
             group.notify(queue: .main) {
+                self.Events.sort(by: { $0.eventTitle < $1.eventTitle })
                 self.eventsTableView.reloadData()
                 self.loadingIndicatorView.isHidden = true
             }
@@ -90,7 +82,7 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     
     //Number of cell rows
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Events.count
     }
     
@@ -99,10 +91,16 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return 200
     }
 
+    
+    
+    
+    
     //Populate data into Cells
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell_ID", for: indexPath) as! EventCell
-
+        
+     
+        
         cell.eventID = Events[indexPath.row].eventTitle
         cell.titleLabel.text = Events[indexPath.row].title
         cell.detailsLabel?.text = Events[indexPath.row].details
@@ -113,6 +111,18 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.attendingCount = Events[indexPath.row].attendingGuests.count
         cell.eventID = Events[indexPath.row].eventTitle
         cell.attendingingUIDs = Events[indexPath.row].attendingGuests
+        
+        
+        if cell.attendingCount <= 10 {
+            cell.attendingCountLabel.isHidden = true
+        }
+        else if cell.attendingCount > 10 {
+            cell.attendingCountLabel.isHidden = false
+            cell.attendingCountLabel.text = "+ \((cell.attendingCount - 10).description)"
+        }
+        
+        cell.attendingCollection.reloadData()
+        print("\(Events[indexPath.row].eventTitle): \(Events[indexPath.row].attendingGuests.count)")
         
         return cell
     }
@@ -128,12 +138,8 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
             destination?.detailsMoreDetails = Events[indexPath.row].moreDetails
             destination?.eventTitle = Events[indexPath.row].eventTitle
             
-            
             destination?.attendingUID = Events[indexPath.row].attendingGuests
 
-            
-            
-            
             eventsTableView.deselectRow(at: indexPath, animated: true)
         }
     }

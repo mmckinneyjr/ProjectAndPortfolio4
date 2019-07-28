@@ -14,12 +14,14 @@ class FoodItem {
     var details: String
     var price: String
     var category: String
+    var docID: String
     
-    init(_itemName: String, _details: String, _price: String, _category: String) {
+    init(_itemName: String, _details: String, _price: String, _category: String, _docID: String) {
         self.itemName = _itemName
         self.details = _details
         self.price = _price
         self.category = _category
+        self.docID = _docID
     }
     
     

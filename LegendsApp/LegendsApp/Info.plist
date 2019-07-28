@@ -20,6 +20,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>This app wants to take pictures</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app wants to use your photos</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Prime Regular.otf</string>
@@ -34,13 +38,11 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>This app wants to take pictures</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app wants to use your photos</string>
 </dict>
 </plist>

@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseUI
 
-class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate {
     
     
     //Variables
@@ -18,13 +18,16 @@ class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionView
     let db = Firestore.firestore()
     let storage = Storage.storage()
     let globalFunc = GlobalFunctions()
-    
+    let refreshControl = UIRefreshControl()
+
     var pickedImageStore: UIImage!
     let imagePicker = UIImagePickerController()
     var thumbURLstore = ""
     var photoURLstore = ""
     
-
+    @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var progressView: UIView!
+    
     var GalleryImages = [Gallery]()
     var eventID: String = ""
     
@@ -32,22 +35,37 @@ class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        LoadImages()
-        globalFunc.loadProfilePhoto(loggedInUserImage)
-
         
         UINavigationBar.appearance().titleTextAttributes = globalFunc.navTitle
         
-        
         imagePicker.delegate = self
         
+        //If user is not signed in add photo and edit buttons are not available
         if user != nil {
             photoButtonsView.isHidden = false
         }
         else if user == nil {
             photoButtonsView.isHidden = true
         }
+        
+        
+        galleryCollectionView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action:  #selector(refresh), for: .valueChanged)
+     
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 6.0
+        
+        
+        
+        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        GalleryImages.removeAll()
+        LoadImages()
+        globalFunc.loadProfilePhoto(loggedInUserImage)
+    }
+
     
     //Adds padding to collection view
     override func viewDidLayoutSubviews() {
@@ -65,10 +83,16 @@ class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionView
     @IBOutlet weak var galleryCollectionView: UICollectionView!
     @IBOutlet weak var loggedInUserImage: UIImageView!
     @IBOutlet weak var largeGalleryImage: UIImageView!
-    @IBOutlet weak var largeGalleryImageView: UIView!
-    @IBOutlet weak var largeGalleryButton: UIButton!
     @IBOutlet weak var photoButtonsView: UIView!
     
+    @IBOutlet weak var closeLabel: UILabel!
+    @IBOutlet weak var largeGalleryButton: UIButton!
+    @IBOutlet weak var largeGalleryButton2: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return largeGalleryImage
+    }
     
     //MARK: - Collection View
     //Number of cell rows
@@ -81,12 +105,9 @@ class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = galleryCollectionView.dequeueReusableCell(withReuseIdentifier: "galleryCell_ID", for: indexPath) as! GalleryCollectionViewCell
         
-        
-        
         let httpsReference = self.storage.reference(forURL: GalleryImages[indexPath.row].thumbnailString)
-        let placeholderImage = UIImage(named: "placeholder.jpg")
+        let placeholderImage = UIImage(named: "attendingPlaceHolder")
         cell.galleryImage.sd_setImage(with: httpsReference, placeholderImage: placeholderImage)
-        
         globalFunc.ImageBorder(cell.galleryImage)
 
         return cell
@@ -128,40 +149,40 @@ class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionView
                     var urlComp = URLComponents(url: url, resolvingAgainstBaseURL: false) {
                     urlComp.scheme = "https"
                     if let secureURL = urlComp.url {
-                        let imageData = try! Data.init(contentsOf: secureURL)
+                        if let imageData = try? Data.init(contentsOf: secureURL) {
                         imagePhoto = UIImage(data: imageData)!
+                        }
                     }
                 }
 
         largeGalleryImage.image = imagePhoto
         
         UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveEaseOut,
-                       animations: {self.largeGalleryImageView.alpha = 1.0},
-                       completion: { _ in self.largeGalleryImageView.isHidden = false
+                       animations: {self.scrollView.alpha = 1.0},
+                       completion: { _ in self.scrollView.isHidden = false
                         
                         self.largeGalleryButton.isHidden = false
+                        self.largeGalleryButton2.isHidden = false
+                        self.closeLabel.isHidden = false
+
         })
-//        largeGalleryImageView.isHidden = false
-//        largeGalleryButton.isHidden = false
     }
+    
+    
+
+
     
     
     //Dismisses Large image view
     @IBAction func touchButton(_ sender: Any) {
-        
-        
         UIView.animate(withDuration: 0.2, delay: 0.2, options: .curveEaseOut,
-                       animations: {self.largeGalleryImageView.alpha = 0},
-                       completion: { _ in self.largeGalleryImageView.isHidden = true
+                       animations: {self.scrollView.alpha = 0},
+                       completion: { _ in self.scrollView.isHidden = true
                         
                         self.largeGalleryButton.isHidden = true
+                        self.largeGalleryButton2.isHidden = true
+                        self.closeLabel.isHidden = true
         })
-        
-        
-        
-        
-       // largeGalleryImageView.isHidden = true
-       // largeGalleryButton.isHidden = true
     }
     
     //Downloads event info into Events array
@@ -170,7 +191,6 @@ class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionView
         group.enter()
         
         DispatchQueue.main.async {
-            
             self.db.collection("GalleryPhotos").getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
@@ -192,9 +212,9 @@ class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionView
             group.notify(queue: .main) {
                 self.GalleryImages.sort(by: { $0.titleLable > $1.titleLable })
                 self.galleryCollectionView.reloadData()
-                for i in self.GalleryImages {
-                    print(i.titleLable)
-                }
+//                for i in self.GalleryImages {
+//                    print(i.titleLable)
+//                }
             }
         }
     }
@@ -206,7 +226,8 @@ class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionView
     
     
     
-    //Upload image button
+    //Alert to Upload image
+    //Select gallery, camera, or cancel buttons
     @IBAction func addImageButton(_ sender: Any) {
         let imageUploadOption = UIAlertController(title: nil, message: "Upload Image From", preferredStyle: .actionSheet)
         
@@ -229,6 +250,10 @@ class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionView
         imageUploadOption.addAction(cancelAction)
         
         self.present(imageUploadOption, animated: true, completion: nil)
+        
+        
+
+
     }
     
     
@@ -236,7 +261,7 @@ class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionView
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             pickedImageStore = pickedImage
-            uploadProfileImage(tempImage: pickedImageStore)
+            uploadImage(tempImage: pickedImageStore)
         }
         dismiss(animated: true, completion: nil)
     }
@@ -244,7 +269,8 @@ class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionView
     
     
     //Upload Gallery Photos to storage
-    func uploadProfileImage(tempImage: UIImage) {
+    func uploadImage(tempImage: UIImage) {
+
         let currentDate = Date()
         let format = DateFormatter()
         format.timeZone = .current
@@ -280,14 +306,35 @@ class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionView
                 guard url != nil else { return }
                 self.photoURLstore = url!.absoluteString
                 self.saveImageData(uid: self.user!, photoURL: self.photoURLstore, thumbURL: self.thumbURLstore, dateName: dateString)
+                
             }
+        }
+        
+
+
+        
+        _ = photoUpload.observe(.progress) { snapshot in
+
+            self.progressView.isHidden = false
+            //self.progressLabel.text =  ("\(String(format: ("\(100.0 * snapshot.progress!.fractionCompleted)%.0d")))% Complete")
+            self.progressLabel.text =  "\(String(format: "%.0f", 100.0 * snapshot.progress!.fractionCompleted))% Complete"
+
+            
         }
         
         // Create a task listener handle
         _ = photoUpload.observe(.success) { snapshot in
+            self.progressView.isHidden = true
             self.GalleryImages.removeAll()
             self.LoadImages()
+            print("Complete")
         }
+        let alert = UIAlertController(title: "Upload", message: "Your photo is being upload now", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+        }))
+        self.present(alert, animated: true, completion: nil)
+
+        
     }
     
     
@@ -311,8 +358,14 @@ class VC_Gallery: UIViewController, UICollectionViewDataSource, UICollectionView
         }
     }
     
-    
-    
+    //Refresh Screen
+    @objc func refresh() {
+        GalleryImages.removeAll()
+        LoadImages()
+        
+        refreshControl.endRefreshing()
+    }
+
     
     
 }
@@ -328,6 +381,20 @@ class Gallery {
     var photoString: String = ""
     var titleLable: String = ""
     var uploader: String = ""
+    
+    
+    var date: String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyyMMddHHmmssSSS"
+    let dates = dateFormatter.date(from: titleLable)
+        
+    dateFormatter.dateFormat = "dd MMMM yyyy"
+        // again convert your date to string
+    let myStringafd = dateFormatter.string(from: dates!)
+        return myStringafd
+    }
+    
+    
     
     
     //Initializer

@@ -9,22 +9,21 @@
 import UIKit
 
 class VC_Admin: UIViewController {
+    
+    let globalFunc = GlobalFunctions()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        UINavigationBar.appearance().titleTextAttributes = globalFunc.navTitle
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //Sets status bar content to white
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
-    */
 
+
+    
 }

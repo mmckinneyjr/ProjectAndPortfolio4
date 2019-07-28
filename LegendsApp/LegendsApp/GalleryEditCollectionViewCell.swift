@@ -8,7 +8,9 @@
 
 import UIKit
 
-class GalleryEditCollectionViewCell: UICollectionViewCell {
+class GalleryEditCollectionViewCell: UITableViewCell {
     
     @IBOutlet weak var galleryEditImages: UIImageView!
+    @IBOutlet weak var dateLabel: UILabel!
+    var titleLabel: String = ""
 }

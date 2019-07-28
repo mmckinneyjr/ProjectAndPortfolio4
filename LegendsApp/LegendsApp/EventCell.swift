@@ -34,10 +34,19 @@ class EventCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDe
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
-    
+    @IBOutlet weak var attendingCountLabel: UILabel!
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return attendingCount
+        var attendCnt = 0
+        
+        if attendingCount <= 10 {
+            attendCnt = attendingCount
+        }
+        else if attendingCount > 10 {
+            attendCnt = 10
+        }
+        
+        return attendCnt
     }
     
 
@@ -53,36 +62,32 @@ class EventCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDe
         // Placeholder image
         let placeholderImage = UIImage(named: "attendingPlaceHolder")
         // Load the image using SDWebImage
+
         cell.attendingImage.sd_setImage(with: reference, placeholderImage: placeholderImage)
         globalFunc.roundImage3(cell.attendingImage!)
+        
+//        let islandRef = storageRef.child("UserProfileImages/\(attendingingUIDs[indexPath.row])")
+//
+//        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
+//        islandRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
+//            if let error = error {
+//                print("error loading attending: \(error)")
+//            } else {
+//                // Data for "images/island.jpg" is returned
+//                cell.attendingImage.image = UIImage(data: data!)
+//            }
+//        }
+        
+        
+        
+        
         
         return cell
     }
 
     
     
-    
-    
-    
-    func loadAttending(){
-        self.db.collection("Events").document(eventID)
-            .addSnapshotListener { documentSnapshot, error in
-                guard let document = documentSnapshot else {
-                    print("Error fetching document: \(error!)")
-                    return
-                }
-                guard let data = document.get("attending") as? [String] else {
 
-                    self.attendingCollection.reloadData()
-
-                    print("Document data was empty.")
-                    return
-                }
-                print("Current data: \(data)")
-        }
-   }
-    
-    
     
     
     

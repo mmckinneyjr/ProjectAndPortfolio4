@@ -24,6 +24,12 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
+        emailAddressTextField.delegate = self
+        passwordTextField.delegate = self
+
+        
         UINavigationBar.appearance().titleTextAttributes = globalFunc.navTitle
         
         globalFunc.roundImage(profileImageView)
@@ -83,7 +89,9 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     
     
     
-
+    
+    
+    
     
     
     //Dismisses keyboard if tap outside keyboard area
@@ -106,7 +114,7 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
             if firstName.isEmpty || lastName.isEmpty || email.isEmpty || password.isEmpty{
                 self.Alert(title: "Invalid", message: "Please make sure all fields are filled")
             }
-            //Alert if user does not upload a profile image
+                //Alert if user does not upload a profile image
             else if profileImageView == nil || profileImageView.image == UIImage(named: "uploadImage") {
                 self.Alert(title: "Invalid", message: "Please make sure you upload a profile photo")
             }
@@ -135,7 +143,7 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     func uploadProfileImage(tempImage: UIImage, uid: String, email: String, fName: String, lName: String) {
         let storageRef = Storage.storage().reference()
         // Data in memory
-        let data = tempImage.jpegData(compressionQuality: 0.75)
+        let data = tempImage.jpegData(compressionQuality: 0.5)
         // Create a reference to the file you want to upload
         let riversRef = storageRef.child("UserProfileImages/\(uid)")
         // Upload the file to the path "images/rivers.jpg"
@@ -170,6 +178,29 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
             }
         }
     }
+    
+    
+    //Switch from one textfield to another
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == firstNameTextField {
+            textField.resignFirstResponder()
+            lastNameTextField.becomeFirstResponder()
+        }
+        else if textField == lastNameTextField {
+            textField.resignFirstResponder()
+            emailAddressTextField.becomeFirstResponder()
+        }
+        else if textField == emailAddressTextField {
+            textField.resignFirstResponder()
+            passwordTextField.becomeFirstResponder()
+        }
+        else if textField == passwordTextField {
+            textField.resignFirstResponder()
+            HandleSignUp()
+        }
+        return true
+    }
+    
     
     
     //Alert Function
