@@ -12,23 +12,26 @@ import Firebase
 
 class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    let user = Auth.auth().currentUser?.uid
+    let db = Firestore.firestore()
+    let storage = Storage.storage()
     let globalFunc = GlobalFunctions()
     
-    let db = Firestore.firestore()
     var Events = [Event]()
+    var eventID: String = ""
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadProfilePhoto()
+        LoadEvents()
+        globalFunc.loadProfilePhoto(loggedInUserImage)
         
         
         
         UINavigationBar.appearance().titleTextAttributes = globalFunc.navTitle
         
-        LoadEvents()
+        
         
         
     }
@@ -62,6 +65,7 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 } else {
                     for document in querySnapshot!.documents {
                         
+                        
                         let title = document.data()["title"] as? String ?? ""
                         let details = document.data()["details"] as? String ?? ""
                         let bgImage = document.data()["image"] as? String ?? ""
@@ -69,7 +73,7 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
                         let moreDetails = document.data()["moreDetails"] as? String ?? ""
                         let attendingGuests = document["attending"] as? Array ?? [""]
                         let eventTitle = document.documentID
-
+                        
                         
                         self.Events.append(Event(_title: title, _details: details, _bgImage: bgImage, _dateString: date, _attending: attendingGuests, _moreDetails: moreDetails, _eventTitle: eventTitle))
                     }
@@ -80,9 +84,6 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
             group.notify(queue: .main) {
                 self.eventsTableView.reloadData()
                 self.loadingIndicatorView.isHidden = true
-
-                self.loadProfilePhoto()
-
             }
         }
     }
@@ -102,13 +103,16 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell_ID", for: indexPath) as! EventCell
 
+        cell.eventID = Events[indexPath.row].eventTitle
         cell.titleLabel.text = Events[indexPath.row].title
         cell.detailsLabel?.text = Events[indexPath.row].details
         cell.cellBG.image = Events[indexPath.row].bgImage
         cell.monthLabel.text = Events[indexPath.row].month
         cell.dateLabel.text = Events[indexPath.row].date
-        
+
         cell.attendingCount = Events[indexPath.row].attendingGuests.count
+        cell.eventID = Events[indexPath.row].eventTitle
+        cell.attendingingUIDs = Events[indexPath.row].attendingGuests
         
         return cell
     }
@@ -122,46 +126,28 @@ class VC_Events: UIViewController, UITableViewDelegate, UITableViewDataSource {
             destination?.detailsTitle = Events[indexPath.row].title
             destination?.detailsDetails = Events[indexPath.row].details
             destination?.detailsMoreDetails = Events[indexPath.row].moreDetails
-            destination?.attendingUID = Events[indexPath.row].attendingGuests
             destination?.eventTitle = Events[indexPath.row].eventTitle
+            
+            
+            destination?.attendingUID = Events[indexPath.row].attendingGuests
+
+            
+            
+            
             eventsTableView.deselectRow(at: indexPath, animated: true)
-            
-            
-            print("EVENT TITLE: \(Events[indexPath.row].eventTitle). COUNT: \(Events[indexPath.row].attendingGuests.count)")
         }
     }
     
     
     
 
-    func loadProfilePhoto(){
-        guard let UID = Auth.auth().currentUser?.uid else { return }
-        
-        let docRef = db.collection("Users").document(UID)
-        docRef.getDocument(source: .cache) { (document, error) in
-            if let document = document {
-                let imageProperty = document.get("profileImage") as! String
-                
-                if imageProperty.contains("http"),
-                    let url = URL(string: imageProperty),
-                    var urlComp = URLComponents(url: url, resolvingAgainstBaseURL: false) {
-                    urlComp.scheme = "https"
-                    if let secureURL = urlComp.url {
-                        let imageData = try! Data.init(contentsOf: secureURL)
-                        self.globalFunc.roundImage(self.loggedInUserImage)
-                        self.loggedInUserImage.image = UIImage(data: imageData)
-                        
-                    }
-                }
-                
-            } else {
-                print("Document does not exist")
-            }
-        }
-    }
     
 
     
         
         
 }
+
+
+
+

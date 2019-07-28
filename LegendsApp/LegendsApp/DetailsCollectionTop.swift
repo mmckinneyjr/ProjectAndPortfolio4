@@ -16,9 +16,8 @@ class DetailsCollectionTop: UICollectionReusableView {
     @IBOutlet weak var detailsTitleLabel: UILabel!
     @IBOutlet weak var detailsMoreDetails: UITextView!
     @IBOutlet weak var detailsDetails: UILabel!
-    
     @IBOutlet weak var attendingButton: UIButton!
-    @IBOutlet weak var attendingButtonImage: UIImageView!
-    
+    @IBOutlet weak var attendingView: UIView!
+    @IBOutlet weak var attendingLabel: UILabel!
     
 }

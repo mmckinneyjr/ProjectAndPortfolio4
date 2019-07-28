@@ -9,8 +9,11 @@ import Firebase
 
 class VC_FoodMenu: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    
+    let user = Auth.auth().currentUser?.uid
     let db = Firestore.firestore()
+    let storage = Storage.storage()
+    
+    let globalFunc = GlobalFunctions()
     var Menu = [FoodItem]()
     var filteredMenu = [[FoodItem](), [FoodItem](), [FoodItem]()]
     
@@ -18,10 +21,15 @@ class VC_FoodMenu: UIViewController, UITableViewDelegate, UITableViewDataSource 
         super.viewDidLoad()
 
         LoadMenu()
+        UINavigationBar.appearance().titleTextAttributes = globalFunc.navTitle
 
         
     }
     
+    //Sets status bar content to white
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 
     @IBOutlet weak var foodTableView: UITableView!
     

@@ -14,12 +14,15 @@ class User {
     var UID: String
     var fName: String
     var lName: String
+    var email: String
     var profileImageURL: String
     
-    init(_UID: String, _fName: String, _lName: String, _profileImageURL: String) {
+    init(_UID: String, _fName: String, _lName: String, _profileImageURL: String, _email: String) {
         self.UID = _UID
         self.fName = _fName
         self.lName = _lName
+        self.lName = _lName
+        self.email = _email
         self.profileImageURL = _profileImageURL
     }
     

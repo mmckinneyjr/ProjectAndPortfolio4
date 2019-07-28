@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import FirebaseAuth
 import Firebase
 
 
@@ -49,6 +48,19 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     }
     
     
+    //MARK: - Buttons
+    //Submit Button
+    @IBAction func submitButton(_ sender: Any) {
+        HandleSignUp()
+    }
+    
+    //Cancel Button
+    @IBAction func cancelButton(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    //MARK: - Picker
     //Selected image from picker
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
@@ -71,15 +83,7 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     
     
     
-    //Submit Button
-    @IBAction func submitButton(_ sender: Any) {
-        HandleSignUp()
-    }
-    
-    //Cancel Button
-    @IBAction func cancelButton(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
+
     
     
     //Dismisses keyboard if tap outside keyboard area
@@ -91,9 +95,8 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
     }
     
     
-    
+    //Uploads profile to database
     func HandleSignUp() {
-        
         if let firstName = firstNameTextField.text,
             let lastName = lastNameTextField.text,
             let email = emailAddressTextField.text,
