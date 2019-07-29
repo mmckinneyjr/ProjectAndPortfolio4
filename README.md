@@ -5,42 +5,17 @@
 
 ### Stay current with the latest events going on at Legends Nightclub!
 
-<div class="row">
-  <div class="column">
-<img src="Misc/iPhoneScreenShot01.png" width="100%"> 
-  </div>
-  <div class="column">
-<img src="Misc/iPhoneScreenShot02.png" width="100%"> 
-  </div>
-  <div class="column">
-<img src="Misc/iPhoneScreenShot03.png" width="100%"> 
-  </div>
-</div>
+![](Misc/iPhoneScreenShot01.png) ![](Misc/iPhoneScreenShot02.png) ![](Misc/iPhoneScreenShot03.png)![](Misc/iPhoneScreenShot04.png)![](Misc/iPhoneScreenShot5.png)
 
-<div class="row">
-  <div class="column">
-<img src="Misc/iPhoneScreenShot04.png" width="100%"> 
-  </div>
-  <div class="column">
-<img src="Misc/iPhoneScreenShot05.png" width="100%"> 
-  </div>
-</div>
 
-<style>
-* {
-  box-sizing: border-box;
-}
 
-.column {
-  float: left;
-  width: 33.33%;
-  padding: 5px;
-}
 
-/* Clearfix (clear floats) */
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-</style>
+<p float="left">
+  <img src="Misc/iPhoneScreenShot01.png" width="100" />
+  <img src="Misc/iPhoneScreenShot02.png" width="100" /> 
+  <img src="Misc/iPhoneScreenShot03.png" width="100" />
+</p>
+
+<br>
+
+<img src="Misc/iPhoneScreenShot01.png" width="100" /><img src="Misc/iPhoneScreenShot02.png" width="100" /><img src="Misc/iPhoneScreenShot03.png" width="100" />
