@@ -11,7 +11,6 @@
 
 
 [![Alt text](Misc/iPhoneScreenShot01.png)](Misc/previewVideo.webm)
-<br>
 #### (Click to see preview)
 
 
