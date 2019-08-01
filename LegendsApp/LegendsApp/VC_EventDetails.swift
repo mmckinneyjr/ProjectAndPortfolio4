@@ -1,10 +1,8 @@
-//
 //  VC_EventDetails.swift
 //  LegendsApp
-//
-//  Created by Mark Mckinney Jr. on 7/12/19.
+//  Created by Mark Mckinney Jr. July 2019.
 //  Copyright © 2019 Mark Mckinney Jr. All rights reserved.
-//
+
 import Foundation
 import UIKit
 import Firebase
@@ -12,12 +10,12 @@ import FirebaseUI
 
 class VC_EventDetails: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-
+    
+    //Variables
     let user = Auth.auth().currentUser?.uid
     let db = Firestore.firestore()
     let storage = Storage.storage()
     let globalFunc = GlobalFunctions()
-    
     var attendingUID = [String]()
     var detailsBGImage = UIImage()
     var detailsDate = ""
@@ -32,7 +30,7 @@ class VC_EventDetails: UIViewController, UICollectionViewDataSource, UICollectio
         super.viewDidLoad()
         
         UINavigationBar.appearance().titleTextAttributes = globalFunc.navTitle
-
+        
         BGImage.image = detailsBGImage        
         
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
@@ -44,54 +42,44 @@ class VC_EventDetails: UIViewController, UICollectionViewDataSource, UICollectio
         loadAttending()
     }
     
+    
     //Sets status bar content to white
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
     
-    
-    
     func loadAttending(){
-            self.db.collection("Events").document(self.eventTitle)
-                .addSnapshotListener { documentSnapshot, error in
-                    guard let document = documentSnapshot else {
-                        print("Error fetching document: \(error!)")
-                        return
-                    }
-                    guard let data = document.get("attending") as? [String] else {
-                        
-                        self.detailsCollectionView.reloadData()
-
-                        print("Document data was empty.")
-                        return
-                    }
-                    self.attendingUID.removeAll()
-                    self.attendingUID =  data
+        self.db.collection("Events").document(self.eventTitle)
+            .addSnapshotListener { documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                guard let data = document.get("attending") as? [String] else {
                     
-                    if self.user != nil {
+                    self.detailsCollectionView.reloadData()
+                    
+                    print("Document data was empty.")
+                    return
+                }
+                self.attendingUID.removeAll()
+                self.attendingUID =  data
+                
+                if self.user != nil {
                     if self.attendingUID.contains(self.user!) {
                         self.attending = true
                     }
-                    }
-                    else { self.attending = false }
-                    self.detailsCollectionView.reloadData()
-
+                }
+                else { self.attending = false }
+                self.detailsCollectionView.reloadData()
         }
     }
-    
-    
-    
-    
-    
-    
     
     
     //UI Elements
     @IBOutlet weak var BGImage: UIImageView!
     @IBOutlet weak var detailsCollectionView: UICollectionView!
-    
-    
     
     @IBAction func attendingButton(_ sender: Any) {
         
@@ -125,54 +113,30 @@ class VC_EventDetails: UIViewController, UICollectionViewDataSource, UICollectio
         return attendingUID.count
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = detailsCollectionView.dequeueReusableCell(withReuseIdentifier: "detailsCollectionCell", for: indexPath) as! DetailsCollectionCell
         
-
         let storage = Storage.storage()
         // Create a storage reference from our storage service
         let storageRef = storage.reference()
         // Reference to an image file in Firebase Storage
         let reference = storageRef.child("UserProfileImages/\(attendingUID[indexPath.row])")
-                // Placeholder image
-                let placeholderImage = UIImage(named: "attendingPlaceHolder")
-                // Load the image using SDWebImage
+        // Placeholder image
+        let placeholderImage = UIImage(named: "loading")
+        // Load the image using SDWebImage
         
-                cell.cellImage.sd_setImage(with: reference, placeholderImage: placeholderImage)
-                globalFunc.roundImage3(cell.cellImage!)
-
-//        let islandRef = storageRef.child("UserProfileImages/\(attendingUID[indexPath.row])")
-//
-//        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-//        islandRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-//            if let error = error {
-//                print("error loading attending: \(error)")
-//            } else {
-//                // Data for "images/island.jpg" is returned
-//                cell.cellImage.image = UIImage(data: data!)
-//                self.globalFunc.roundImage3(cell.cellImage)
-//
-//            }
-//        }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        cell.cellImage.sd_setImage(with: reference, placeholderImage: placeholderImage)
         
         return cell
     }
+    
     
     //Top View
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let topDetails = detailsCollectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "detailsCollectionTop", for: indexPath) as! DetailsCollectionTop
-
+        
         if user == nil {
             topDetails.attendingView.isHidden = true
         }
@@ -185,7 +149,7 @@ class VC_EventDetails: UIViewController, UICollectionViewDataSource, UICollectio
         topDetails.detailsMoreDetails.text = detailsMoreDetails
         topDetails.detailsDetails.text = detailsDetails
         topDetails.attendingLabel.text = "Attending: \(attendingUID.count)"
-
+        
         
         //Changes attending button visual from attending to empty(not attending)
         if attending == true {
@@ -194,7 +158,7 @@ class VC_EventDetails: UIViewController, UICollectionViewDataSource, UICollectio
         else if attending == false {
             topDetails.attendingButton.setImage(UIImage(named: "yes"), for: .normal)
         }
-
+        
         return topDetails
     }
     
@@ -215,27 +179,29 @@ class VC_EventDetails: UIViewController, UICollectionViewDataSource, UICollectio
         return CGSize(width: width - 20, height: width - 20)
     }
     
+    
     //these configure the spacing between items (user images)
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
     
-
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         detailsCollectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
     }
-
     
-        
-        
+    
+    
+    
 }

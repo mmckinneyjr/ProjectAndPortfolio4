@@ -1,7 +1,6 @@
 //  VC_Admin_FoodMenu.swift
 //  LegendsApp
-//
-//  Created by Mark Mckinney Jr. on 7/15/19.
+//  Created by Mark Mckinney Jr. July 2019.
 //  Copyright © 2019 Mark Mckinney Jr. All rights reserved.
 
 
@@ -10,20 +9,16 @@ import Firebase
 
 class VC_Admin_FoodMenu: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource {
     
-    
-    
+    //Variables
     let user = Auth.auth().currentUser?.uid
     let db = Firestore.firestore()
     let storage = Storage.storage()
-    
     let globalFunc = GlobalFunctions()
     var Menu = [FoodItem]()
     var filteredMenu = [[FoodItem](), [FoodItem](), [FoodItem](), [FoodItem](), [FoodItem](), [FoodItem](), [FoodItem](), [FoodItem](), [FoodItem]()]
-    
-    
-    
     var categories = ["starters","flatbreads","salads","soup & chili","pasties","entrees","burgers","sandwiches","desserts"]
     var category: String = "starters"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +30,7 @@ class VC_Admin_FoodMenu: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         self.categoryPicker.delegate = self
         self.categoryPicker.dataSource = self
     }
+    
     
     //Sets status bar content to white
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -62,6 +58,7 @@ class VC_Admin_FoodMenu: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         dismiss(animated: true, completion: nil)
     }
     
+    
     //Edit food items Button
     @IBAction func editButton(_ sender: Any) {
         addItemView.isHidden = true
@@ -71,6 +68,7 @@ class VC_Admin_FoodMenu: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         editItemView.isHidden = false
         LoadMenu()
     }
+    
     
     //Add food items Button
     @IBAction func addButton(_ sender: Any) {
@@ -82,26 +80,35 @@ class VC_Admin_FoodMenu: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
     
     
+    //MARK: Add food item to menu
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let attributedString = NSAttributedString(string: categories[row], attributes: [NSAttributedString.Key.foregroundColor : UIColor.white])
         return attributedString
     }
     
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return categories.count
     }
+    
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         pickerView.tintColor = UIColor.white
         return categories[row]
     }
+    
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.category = categories[row]
     }
     
+    
+    //Add Food Item - function adds food item to database
     @IBAction func addFoodItem(_ sender: Any) {
         let db = Firestore.firestore()
         
@@ -113,7 +120,7 @@ class VC_Admin_FoodMenu: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                 Alert(title: "Invalid", message: "Please make sure all fields are filled")
             }
                 
-            else{
+            else {
                 // Add a new document in collection "FoodMenu"
                 db.collection("FoodMenu").addDocument(data: [
                     "category" : category,
@@ -125,7 +132,7 @@ class VC_Admin_FoodMenu: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                         print("Error writing document: \(err)")
                     } else {
                         print("Document successfully written!")
-                        self.Alert(title: "Complete", message: "Your item has successfully been uploaded")
+                        self.Alert(title: "Complete", message: "Your item has successfully been added to the menu")
                         self.itemTitleTextField.text = ""
                         self.priceTextField.text = ""
                         self.detailsTextField.text = ""
@@ -153,10 +160,11 @@ class VC_Admin_FoodMenu: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
     
     
-    
+    //MARK: Edit food menu
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return filteredMenu[section].count
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = foodTableView.dequeueReusableCell(withIdentifier: "adminFoodTableView_cell", for: indexPath) as! FoodMenuCell
@@ -211,34 +219,40 @@ class VC_Admin_FoodMenu: UIViewController, UIPickerViewDelegate, UIPickerViewDat
         header.backgroundView?.backgroundColor = UIColor(red: 0.4392, green: 0.4392, blue: 0.4392, alpha: 1.0)
     }
     
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 35
     }
     
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        let f = filteredMenu[indexPath.section][indexPath.row].docID
-        db.collection("FoodMenu").document(f).delete() { err in
-            if let err = err {
-                print("Error updating document: \(err)")
-            } else {
-                self.LoadMenu()
-                print("Document successfully updated2")
+        let alert = UIAlertController(title: "Delete", message: "Are sure you want you delete this menu item?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Default action"), style: .default, handler: { _ in
+            
+            let f = self.filteredMenu[indexPath.section][indexPath.row].docID
+            self.db.collection("FoodMenu").document(f).delete() { err in
+                if let err = err {
+                    print("Error updating document: \(err)")
+                } else {
+                    self.LoadMenu()
+                    print("Item successfully removed")
+                }
             }
-        }
+        }))
+        
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Default action"), style: .cancel, handler: { _ in
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     
-    
     @IBAction func deleteButton(){
-        let alert = UIAlertController(title: "Delete", message: "Are sure you want you delete your photo(s)", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Delete", message: "Are sure you want you delete the selected item(s)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Default action"), style: .default, handler: { _ in
-            
             
             self.deleteCancelView.isHidden = true
             self.editView.isHidden = false
-            
             
             if var selectedItems = self.foodTableView.indexPathsForSelectedRows {
                 selectedItems.sort{(x,y) -> Bool in x.row > y.row
@@ -251,10 +265,8 @@ class VC_Admin_FoodMenu: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                         if let err = err {
                             print("Error updating document: \(err)")
                         }
-                            
                         else {
-                            print("Document successfully updated")
-                            
+                            print("Item(s) successfully removed")
                             
                             switch path.section{
                             case 0: self.filteredMenu[0].remove(at: path.row)
@@ -266,17 +278,13 @@ class VC_Admin_FoodMenu: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                             case 6: self.filteredMenu[6].remove(at: path.row)
                             case 7: self.filteredMenu[7].remove(at: path.row)
                             case 8: self.filteredMenu[8].remove(at: path.row)
-                                
-                                
                             default: print("error refreshing")
                             }
                             
                             self.foodTableView.reloadData()
                         }
-                        
                     }
                 }
-                
                 
                 self.foodTableView.setEditing(false, animated: true)
             }
@@ -289,11 +297,13 @@ class VC_Admin_FoodMenu: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
     
     
+    //Cancel Button
     @IBAction func cancelButton(){
         foodTableView.setEditing(false, animated: true)
         deleteCancelView.isHidden = true
         editView.isHidden = false
     }
+    
     
     //Edit button
     @IBAction func foodEditButton(_ sender: Any) {
@@ -303,8 +313,7 @@ class VC_Admin_FoodMenu: UIViewController, UIPickerViewDelegate, UIPickerViewDat
     }
     
     
-
-    
+    //Loads menu items into respective category using the filteredMenu array of items
     func LoadMenu(){
         Menu = [FoodItem]()
         
@@ -332,13 +341,9 @@ class VC_Admin_FoodMenu: UIViewController, UIPickerViewDelegate, UIPickerViewDat
                 }
                 group.leave()
             }
-            
             group.notify(queue: .main) {
                 self.filteritems()
                 self.foodTableView.reloadData()
-                for i in self.filteredMenu {
-                    print("PRINT: \(i)")
-                }
             }
         }
     }

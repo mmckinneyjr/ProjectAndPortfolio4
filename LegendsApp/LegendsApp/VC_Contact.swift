@@ -1,10 +1,7 @@
-//
 //  VC_Contact.swift
 //  LegendsApp
-//
-//  Created by Mark Mckinney Jr. on 7/18/19.
+//  Created by Mark Mckinney Jr. July 2019.
 //  Copyright © 2019 Mark Mckinney Jr. All rights reserved.
-//
 
 import UIKit
 import Firebase
@@ -12,24 +9,30 @@ import MessageUI
 
 class VC_Contact: UIViewController, MFMailComposeViewControllerDelegate {
     
+    
+    //Variables
     let user = Auth.auth().currentUser?.uid
     let globalFunc = GlobalFunctions()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         UINavigationBar.appearance().titleTextAttributes = globalFunc.navTitle
         globalFunc.loadProfilePhoto(profileImage)
-
     }
+    
+    
+    //UI Elements
+    @IBOutlet weak var messageBox: UITextView!
+    @IBOutlet weak var profileImage: UIImageView!
+    
     
     //Sets status bar content to white
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-    @IBOutlet weak var messageBox: UITextView!
-    @IBOutlet weak var profileImage: UIImageView!
     
     func sendMail() {
         if user == nil {
@@ -61,15 +64,16 @@ class VC_Contact: UIViewController, MFMailComposeViewControllerDelegate {
     }
     
     
-    
     @IBAction func callButton(_ sender: Any) {
         guard let number = URL(string: "tel://" + "6087697596") else { return }
         UIApplication.shared.open(number)
     }
     
+    
     @IBAction func sendMessageButton(_ sender: Any) {
         sendMail()
     }
+    
     
     //Dismisses keyboard if tap outside keyboard area
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

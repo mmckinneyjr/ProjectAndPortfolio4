@@ -1,36 +1,29 @@
-//
 //  VC_SignUp.swift
 //  LegendsApp
-//
-//  Created by Mark Mckinney Jr. on 7/11/19.
+//  Created by Mark Mckinney Jr. July 2019.
 //  Copyright © 2019 Mark Mckinney Jr. All rights reserved.
-//
 
 import UIKit
 import Firebase
 
 
-
-
-
 class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    //Variables
     var pImageURL:String? = nil
     let globalFunc = GlobalFunctions()
     var imagePicker = UIImagePickerController()
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UINavigationBar.appearance().titleTextAttributes = globalFunc.navTitle
         
         firstNameTextField.delegate = self
         lastNameTextField.delegate = self
         emailAddressTextField.delegate = self
         passwordTextField.delegate = self
-
-        
-        UINavigationBar.appearance().titleTextAttributes = globalFunc.navTitle
         
         globalFunc.roundImage(profileImageView)
         
@@ -60,6 +53,7 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         HandleSignUp()
     }
     
+    
     //Cancel Button
     @IBAction func cancelButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -76,22 +70,17 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         dismiss(animated: true, completion: nil)
     }
     
+    
     //Cancels Image Picker
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
     
+    
     //Upload image button
     @IBAction func uploadImageButton(_ sender: Any) {
         present(imagePicker, animated: true, completion: nil)
     }
-    
-    
-    
-    
-    
-    
-    
     
     
     //Dismisses keyboard if tap outside keyboard area
@@ -139,6 +128,7 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         }   
     }
     
+    
     //Upload Profile Image
     func uploadProfileImage(tempImage: UIImage, uid: String, email: String, fName: String, lName: String) {
         let storageRef = Storage.storage().reference()
@@ -160,6 +150,7 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
             }
         }
     }
+    
     
     //Saves profile information to Users collection in database
     func saveProfile(emailAddress: String, firstName: String, lastName: String, profileImageURL: String, uid: String) {
@@ -200,7 +191,6 @@ class VC_SignUp: UIViewController, UITextFieldDelegate, UIImagePickerControllerD
         }
         return true
     }
-    
     
     
     //Alert Function

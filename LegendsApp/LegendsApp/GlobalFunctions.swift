@@ -1,10 +1,7 @@
-//
 //  FontClass.swift
 //  LegendsApp
-//
-//  Created by Mark Mckinney Jr. on 7/12/19.
+//  Created by Mark Mckinney Jr. July 2019.
 //  Copyright © 2019 Mark Mckinney Jr. All rights reserved.
-//
 
 import Foundation
 import UIKit
@@ -30,6 +27,7 @@ class GlobalFunctions {
         image.contentMode = .scaleAspectFill
     }
     
+    
     func roundImage2(_ image: UIImageView){
         image.layer.borderWidth = 1
         image.layer.masksToBounds = false
@@ -40,15 +38,17 @@ class GlobalFunctions {
         image.contentMode = .scaleAspectFill
     }
     
+    
     func roundImage3(_ image: UIImageView){
         image.layer.borderWidth = 1
         image.layer.masksToBounds = false
+        image.contentMode = .scaleAspectFill
         image.layer.borderColor = UIColor.lightGray.cgColor
         image.layer.cornerRadius = image.frame.height/2
         image.clipsToBounds = true
         image.layer.borderColor = UIColor(red:225/255, green:107/255, blue:55/255, alpha: 1).cgColor
-        image.contentMode = .scaleAspectFill
     }
+    
     
     func ImageBorder(_ image: UIImageView){
         image.layer.borderWidth = 1
@@ -58,6 +58,7 @@ class GlobalFunctions {
         image.layer.borderColor = UIColor.lightGray.cgColor
         image.contentMode = .scaleAspectFill
     }
+    
     
     func profileRoundImage(_ image: UIImageView){
         image.layer.borderWidth = 1
@@ -69,22 +70,16 @@ class GlobalFunctions {
     }
     
     
-    
-    
-
-    
-    
     func loadProfilePhoto(_ proImage: UIImageView){
         if user != nil {
-            
-          
+                        
             let docRef = db.collection("Users").document(user!)
             
             docRef.getDocument { (document, error) in
                 if let document = document, document.exists {
                     
                     let imageUrl = document.data()?["profileImage"] as? String ?? ""
-
+                    
                     if imageUrl.contains("http"),
                         let url = URL(string: imageUrl),
                         var urlComp = URLComponents(url: url, resolvingAgainstBaseURL: false) {
@@ -95,44 +90,14 @@ class GlobalFunctions {
                             self.profileRoundImage(proImage)
                         }
                     }
-                } else {
+                }
+                else {
                     print("Document does not exist")
                 }
             }
-            
-            
-            
-            
-            
         }
     }
     
-    
-    
-    
-    
-    
-    
-//    func loadProfilePhoto(_ image: UIImageView){
-//        if user != nil {
-//
-//            let docRef = db.collection("Users").document(user!)
-//            docRef.getDocument(source: .server) { (document, error) in
-//                if let document = document {
-//                    guard let imageProperty = document.get("profileImage") as? String else { return }
-//
-//                    let httpsReference = self.storage.reference(forURL: imageProperty)
-//                    let placeholderImage = UIImage(named: "attendingPlaceHolder")
-//
-//                    image.sd_setImage(with: httpsReference, placeholderImage: placeholderImage)
-//                    self.profileRoundImage(image)
-//
-//                } else {
-//                    print("Document does not exist")
-//                }
-//            }
-//        }
-//    }
     
     
 }

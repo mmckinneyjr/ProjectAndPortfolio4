@@ -1,27 +1,23 @@
-//
 //  VC_AdminEvents.swift
-//  BoringSSL-GRPC
-//
-//  Created by Mark Mckinney Jr. on 7/25/19.
-//
+//  LegendsApp
+//  Created by Mark Mckinney Jr. July 2019.
+//  Copyright © 2019 Mark Mckinney Jr. All rights reserved.
 
 import UIKit
 import Firebase
 
 class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
+    //Variables
     let db = Firestore.firestore()
     let storage = Storage.storage()
-    
     var pImageURL:String? = nil
     let globalFunc = GlobalFunctions()
     var imagePicker = UIImagePickerController()
     var tempDocTitle_time: String? = nil
     var tempEventTitle_time: String? = nil
-    
     var EventImages = [Event]()
-
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,22 +31,23 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
         datePickerOutlet.setValue(UIColor.white, forKey: "textColor")
     }
     
+    
     //Sets status bar content to white
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
     
+    //UI Elements
     @IBOutlet weak var BGImageView: UIImageView!
     @IBOutlet weak var eventTitleTextField: UITextField!
     @IBOutlet weak var eventDetailTextField: UITextField!
     @IBOutlet weak var eventMoreDetailsTextBox: UITextView!
     @IBOutlet weak var datePickerOutlet: UIDatePicker!
-        @IBOutlet weak var galleryEditTableView: UITableView!
+    @IBOutlet weak var galleryEditTableView: UITableView!
     @IBOutlet weak var deleteCancelView: UIView!
     @IBOutlet weak var editBtnOutlet: UIButton!
     @IBOutlet weak var addBtnOutlet: UIButton!
-    
     @IBOutlet weak var barEditOutlet: UIView!
     @IBOutlet weak var barDeleteCancelOutlet: UIView!
     
@@ -65,10 +62,12 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
         dismiss(animated: true, completion: nil)
     }
     
+    
     //Cancels Image Picker
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
+    
     
     @IBAction func datePicker(_ sender: Any) {
         let dateFormatter = DateFormatter()
@@ -87,27 +86,22 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
         tempDocTitle_time = dateFormatter.string(from: dateForm!)
         print("DATE1: \(tempDocTitle_time ?? "")")
         
-        
         dateFormatter.dateFormat = "yyyy-MM-dd"
         tempEventTitle_time = dateFormatter.string(from: dateForm!)
         print("DATE2: \(tempEventTitle_time ?? "")")
-        
-        
     }
+    
     
     //Image Picker button - presents image picker
     @IBAction func imagePickerButton(_ sender: Any) {
         present(imagePicker, animated: true, completion: nil)
-        
     }
+    
     
     //add event view add event button
     @IBAction func addEventButton(_ sender: Any) {
         HandleTableViewLoad()
     }
-    
-    
-    
     
     
     //footer edit button
@@ -119,6 +113,7 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
         deleteCancelView.isHidden = false
     }
     
+    
     //footer add button
     @IBAction func addFooterButton(_ sender: Any) {
         addBtnOutlet.isHidden = true
@@ -126,8 +121,6 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
         galleryEditTableView.isHidden = true
         deleteCancelView.isHidden = true
     }
-
-
     
     
     //Cancel button
@@ -144,15 +137,10 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     
-    
-    
-    
-
     //Back button
     @IBAction func backButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
     
     
     func HandleTableViewLoad() {
@@ -163,8 +151,7 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
             if tempEventTitle_time == nil {
                 self.Alert(title: "Invalid", message: "Please make sure to select a date")
             }
-            
-            //Alert if all fields are not filled
+                //Alert if all fields are not filled
             else if title.isEmpty == true || details.isEmpty == true || moreDetails.isEmpty == true {
                 self.Alert(title: "Invalid", message: "Please make sure all text fields are filled")
             }
@@ -186,8 +173,6 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
             }
         }
     }
-    
-    
     
     
     //Upload Profile Image
@@ -212,6 +197,7 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
         }
     }
     
+    
     //Saves profile information to Users collection in database
     func saveProfile(title: String, details: String, bgImage: String, dateString: String, attending: [String], moreDetails: String, eventTitle: String) {
         let db = Firestore.firestore()
@@ -234,13 +220,13 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     
-    
     //Dismisses keyboard if tap outside keyboard area
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         eventTitleTextField.resignFirstResponder()
         eventDetailTextField.resignFirstResponder()
         eventMoreDetailsTextBox.resignFirstResponder()
     }
+    
     
     //Alert Function
     func Alert(title: String, message: String) {
@@ -250,17 +236,16 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
         present(alert, animated: true, completion: nil)
     }
     
-
-    
-    
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
     }
     
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return EventImages.count
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = galleryEditTableView.dequeueReusableCell(withIdentifier: "adminEventEdit_ID", for: indexPath) as! GalleryEditCollectionViewCell
@@ -278,36 +263,31 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
         return cell
     }
     
-
-    
-    
-    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let alert = UIAlertController(title: "Delete", message: "Are sure you want you delete your photo(s)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Default action"), style: .default, handler: { _ in
             
-        
+            
             let f = self.EventImages[indexPath.row].eventTitle
             
-        //Deletes the actual photo from storage
-        let thumbRef = self.storage.reference().child("EventBGImages/image-\(f)")
-        thumbRef.delete { error in
-            if let error = error { print("Error deleting thumbnail: \(error)") } else { print("") }
-        }
-        
-        //Deletes the reference to the photo
-            self.db.collection("Events").document(f).delete() { err in
-            if let err = err {
-                print("Error updating document: \(err)")
-            } else {
-                print("Document successfully updated")
+            //Deletes the actual photo from storage
+            let thumbRef = self.storage.reference().child("EventBGImages/image-\(f)")
+            thumbRef.delete { error in
+                if let error = error { print("Error deleting thumbnail: \(error)") } else { print("") }
             }
-        }
-        
-            self.EventImages.remove(at: indexPath.row)
-        self.galleryEditTableView.reloadData()
             
+            //Deletes the reference to the photo
+            self.db.collection("Events").document(f).delete() { err in
+                if let err = err {
+                    print("Error updating document: \(err)")
+                } else {
+                    print("Document successfully updated")
+                }
+            }
+            
+            self.EventImages.remove(at: indexPath.row)
+            self.galleryEditTableView.reloadData()
         }))
         
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Default action"), style: .cancel, handler: { _ in
@@ -321,7 +301,7 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
     @IBAction func deleteButton(){
         let alert = UIAlertController(title: "Delete", message: "Are sure you want you delete your photo(s)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Default action"), style: .default, handler: { _ in
-                        
+            
             self.barEditOutlet.isHidden = false
             
             if var selectedItems = self.galleryEditTableView.indexPathsForSelectedRows {
@@ -337,7 +317,7 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
                     thumbRef.delete { error in
                         if let error = error { print("Error deleting thumbnail: \(error)") } else { print("") }
                     }
-
+                    
                     
                     //Deletes the reference to the photo
                     self.db.collection("Events").document(f).delete() { err in
@@ -356,7 +336,6 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
                 
                 self.galleryEditTableView.setEditing(false, animated: true)
             }
-            
         }))
         
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Default action"), style: .cancel, handler: { _ in
@@ -364,12 +343,6 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         self.present(alert, animated: true, completion: nil)
     }
-    
-    
-    
-
-    
-    
     
     
     //Downloads event info into Events array
@@ -389,8 +362,6 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
                         let photo = document.data()["image"] as? String ?? ""
                         let title = document.data()["title"] as? String ?? ""
                         let eventTitle = document.documentID
-
-
                         
                         self.EventImages.append(Event(_title: title, _details: "", _bgImage: photo, _dateString: date, _attending: [], _moreDetails: "", _eventTitle: eventTitle))
                     }
@@ -407,8 +378,5 @@ class VC_AdminEvents: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     
     
-
-    
-
     
 }

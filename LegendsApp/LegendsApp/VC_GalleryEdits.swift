@@ -1,10 +1,7 @@
-//
 //  VC_GalleryEdits.swift
 //  LegendsApp
-//
-//  Created by Mark Mckinney Jr. on 7/20/19.
+//  Created by Mark Mckinney Jr. July 2019.
 //  Copyright © 2019 Mark Mckinney Jr. All rights reserved.
-//
 
 import UIKit
 import Firebase
@@ -16,7 +13,6 @@ class VC_GalleryEdits: UIViewController, UITableViewDelegate, UITableViewDataSou
     let db = Firestore.firestore()
     let storage = Storage.storage()
     let globalFunc = GlobalFunctions()
-    
     var GalleryImages = [Gallery]()
     var FilteredGallery = [Gallery]()
     
@@ -27,10 +23,11 @@ class VC_GalleryEdits: UIViewController, UITableViewDelegate, UITableViewDataSou
         LoadImages()
         
         galleryEditTableView.allowsMultipleSelectionDuringEditing = true
-
+        
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 6.0
     }
+    
     
     //Sets status bar content to white
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -47,7 +44,6 @@ class VC_GalleryEdits: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var galleryEditTableView: UITableView!
     @IBOutlet weak var deleteCancelView: UIView!
     @IBOutlet weak var editView: UIView!
-    
     @IBOutlet weak var largeGalleryImage: UIImageView!
     @IBOutlet weak var largeGalleryImageView: UIView!
     @IBOutlet weak var largeGalleryButton: UIButton!
@@ -56,26 +52,27 @@ class VC_GalleryEdits: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var closeIconLabel: UILabel!
     
     
-    
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         galleryEditTableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 50, right: 0)
     }
     
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
     }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return FilteredGallery.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = galleryEditTableView.dequeueReusableCell(withIdentifier: "galleryEdit_ID", for: indexPath) as! GalleryEditCollectionViewCell
         
         let httpsReference = self.storage.reference(forURL: FilteredGallery[indexPath.row].thumbnailString)
-        let placeholderImage = UIImage(named: "attendingPlaceHolder")
+        let placeholderImage = UIImage(named: "loading")
         cell.galleryEditImages.sd_setImage(with: httpsReference, placeholderImage: placeholderImage)
         cell.dateLabel.text = FilteredGallery[indexPath.row].date
         globalFunc.ImageBorder(cell.galleryEditImages)
@@ -87,8 +84,9 @@ class VC_GalleryEdits: UIViewController, UITableViewDelegate, UITableViewDataSou
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-
+        
         let f = FilteredGallery[indexPath.row].titleLable
         
         //Deletes the actual photo from storage
@@ -109,7 +107,7 @@ class VC_GalleryEdits: UIViewController, UITableViewDelegate, UITableViewDataSou
                 print("Document successfully updated")
             }
         }
-
+        
         FilteredGallery.remove(at: indexPath.row)
         self.galleryEditTableView.reloadData()
     }
@@ -159,55 +157,49 @@ class VC_GalleryEdits: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         scrollView.zoomScale = 1.0
     }
-
+    
     
     @IBAction func deleteButton(){
         let alert = UIAlertController(title: "Delete", message: "Are sure you want yo delete your photo(s)", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Default action"), style: .default, handler: { _ in
-        
-        
-        
-        
+            
             self.deleteCancelView.isHidden = true
             self.editView.isHidden = false
-        
-        if var selectedItems = self.galleryEditTableView.indexPathsForSelectedRows {
-            selectedItems.sort{(x,y) -> Bool in x.row > y.row
-            }
             
-            for path in selectedItems {
+            if var selectedItems = self.galleryEditTableView.indexPathsForSelectedRows {
+                selectedItems.sort{(x,y) -> Bool in x.row > y.row
+                }
                 
-                let f = self.FilteredGallery[path.row].titleLable
-                
-                //Deletes the actual photo from storage
-                let thumbRef = self.storage.reference().child("GalleryPhotos/\(f)_thumbnail")
-                let photoRef = self.storage.reference().child("GalleryPhotos/\(f)_photo")
+                for path in selectedItems {
+                    
+                    let f = self.FilteredGallery[path.row].titleLable
+                    
+                    //Deletes the actual photo from storage
+                    let thumbRef = self.storage.reference().child("GalleryPhotos/\(f)_thumbnail")
+                    let photoRef = self.storage.reference().child("GalleryPhotos/\(f)_photo")
                     thumbRef.delete { error in
                         if let error = error { print("Error deleting thumbnail: \(error)") } else { print("") }
-                }
-                photoRef.delete { error in
-                    if let error = error { print("Error deleting photo: \(error)") } else { print("") }
-                }
-                
-                //Deletes the reference to the photo
-                self.db.collection("GalleryPhotos").document(f).delete() { err in
-                    if let err = err {
-                        print("Error updating document: \(err)")
-                    } else {
-                        print("Document successfully updated")
                     }
+                    photoRef.delete { error in
+                        if let error = error { print("Error deleting photo: \(error)") } else { print("") }
+                    }
+                    
+                    //Deletes the reference to the photo
+                    self.db.collection("GalleryPhotos").document(f).delete() { err in
+                        if let err = err {
+                            print("Error updating document: \(err)")
+                        } else {
+                            print("Document successfully updated")
+                        }
+                    }
+                    self.FilteredGallery.remove(at: path.row)
                 }
                 
+                self.galleryEditTableView.deleteRows(at: selectedItems, with: .left)
+                self.galleryEditTableView.reloadData()
                 
-                
-                self.FilteredGallery.remove(at: path.row)
+                self.galleryEditTableView.setEditing(false, animated: true)
             }
-
-            self.galleryEditTableView.deleteRows(at: selectedItems, with: .left)
-            self.galleryEditTableView.reloadData()
-            
-            self.galleryEditTableView.setEditing(false, animated: true)
-        }
             
         }))
         
@@ -216,10 +208,6 @@ class VC_GalleryEdits: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         self.present(alert, animated: true, completion: nil)
     }
-    
-    
-    
-    
     
     
     //Downloads event info into Events array
@@ -240,7 +228,6 @@ class VC_GalleryEdits: UIViewController, UITableViewDelegate, UITableViewDataSou
                         let label = document.data()["label"] as? String ?? ""
                         let uploader = document.data()["uploadedBy"] as? String ?? ""
                         
-                        
                         self.GalleryImages.append(Gallery(_photoString: photo, _thumbnailString: thumb, _titleLabel: label, _uploader: uploader))
                     }
                 }
@@ -256,17 +243,16 @@ class VC_GalleryEdits: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     
-    
-    
+    //Gallery Back Buttoon
     @IBAction func galleryBackButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
     
+    //Back Button
     @IBAction func backButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
     
     
     @IBAction func cancelButton(){
@@ -275,14 +261,13 @@ class VC_GalleryEdits: UIViewController, UITableViewDelegate, UITableViewDataSou
         editView.isHidden = false
     }
     
+    
     //Edit button
     @IBAction func editButton(_ sender: Any) {
         galleryEditTableView.setEditing(true, animated: true)
         deleteCancelView.isHidden = false
         editView.isHidden = true
     }
-    
-    
     
     
     func filteritems() {

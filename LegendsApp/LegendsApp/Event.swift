@@ -1,10 +1,7 @@
-//
 //  Event.swift
 //  LegendsApp
-//
-//  Created by Mark Mckinney Jr. on 7/12/19.
+//  Created by Mark Mckinney Jr. July 2019.
 //  Copyright © 2019 Mark Mckinney Jr. All rights reserved.
-//
 
 import Foundation
 import UIKit
@@ -21,7 +18,7 @@ class Event {
     var attendingGuests: [String]
     var moreDetails: String
     var eventTitle: String = ""
-
+    
     var fullDate: String{
         return "\(date) \(month) \(year)"
     }
@@ -42,17 +39,18 @@ class Event {
             urlComp.scheme = "https"
             if let secureURL = urlComp.url {
                 if let imageData = try? Data.init(contentsOf: secureURL) {
-                self.bgImage = UIImage(data: imageData)
+                    self.bgImage = UIImage(data: imageData)
                 }
             }
         }
         
         
+        //Sets date string into date object
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let dateString = formatter.date(from: _dateString)
         
-
+        //Sets data object back to individual strings
         formatter.dateFormat = "MMM"
         month = formatter.string(from: dateString!).uppercased() 
         formatter.dateFormat = "dd"
@@ -60,12 +58,6 @@ class Event {
         formatter.dateFormat = "yyyy"
         year = formatter.string(from: dateString!)
     }
-    
-
-    
-    
-    
-
     
     
 }

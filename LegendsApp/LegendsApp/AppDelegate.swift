@@ -1,10 +1,7 @@
-//
 //  AppDelegate.swift
 //  LegendsApp
-//
-//  Created by Mark Mckinney Jr. on 7/11/19.
+//  Created by Mark Mckinney Jr. July 2019.
 //  Copyright © 2019 Mark Mckinney Jr. All rights reserved.
-//
 
 import UIKit
 import CoreData

@@ -1,45 +1,47 @@
 //  VC_FoodMenu.swift
 //  LegendsApp
-//
-//  Created by Mark Mckinney Jr. on July 2019.
+//  Created by Mark Mckinney Jr. July 2019.
 //  Copyright © 2019 Mark Mckinney Jr. All rights reserved.
 
 import UIKit
 import Firebase
 
 class VC_FoodMenu: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
+    //Variables
     let user = Auth.auth().currentUser?.uid
     let db = Firestore.firestore()
     let storage = Storage.storage()
-    
     let globalFunc = GlobalFunctions()
     var Menu = [FoodItem]()
     var filteredMenu = [[FoodItem](), [FoodItem](), [FoodItem](), [FoodItem](), [FoodItem](), [FoodItem](), [FoodItem](), [FoodItem](), [FoodItem]()]
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         LoadMenu()
         UINavigationBar.appearance().titleTextAttributes = globalFunc.navTitle
         globalFunc.loadProfilePhoto(loggedInUserImage)
-
-        
     }
+    
+    
+    //UI Elements
+    @IBOutlet weak var foodTableView: UITableView!
+    @IBOutlet weak var loggedInUserImage: UIImageView!
+    
     
     //Sets status bar content to white
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
-    @IBOutlet weak var foodTableView: UITableView!
-    @IBOutlet weak var loggedInUserImage: UIImageView!
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return filteredMenu[section].count
     }
-
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = foodTableView.dequeueReusableCell(withIdentifier: "foodTableView_cell", for: indexPath) as! FoodMenuCell
         let foodItems = filteredMenu[indexPath.section][indexPath.row]
@@ -50,9 +52,11 @@ class VC_FoodMenu: UIViewController, UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 9
     }
+    
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
@@ -79,6 +83,7 @@ class VC_FoodMenu: UIViewController, UITableViewDelegate, UITableViewDataSource 
         }
     }
     
+    
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.font = UIFont(name: "Prime", size: 18)!
@@ -87,11 +92,10 @@ class VC_FoodMenu: UIViewController, UITableViewDelegate, UITableViewDataSource 
         header.backgroundView?.backgroundColor = UIColor(red: 0.4392, green: 0.4392, blue: 0.4392, alpha: 1.0)
     }
     
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 35
     }
-    
-  
     
     
     func LoadMenu(){
@@ -111,7 +115,6 @@ class VC_FoodMenu: UIViewController, UITableViewDelegate, UITableViewDataSource 
                         let price = document.data()["price"] as? String ?? ""
                         let category = document.data()["category"] as? String ?? ""
                         let docID = document.documentID
-                        
                         
                         self.Menu.append(FoodItem(_itemName: itemName, _details: details, _price: price, _category: category, _docID: docID))
                     }
@@ -143,9 +146,4 @@ class VC_FoodMenu: UIViewController, UITableViewDelegate, UITableViewDataSource 
     
     
     
-    
-    
-    
-    
-
 }

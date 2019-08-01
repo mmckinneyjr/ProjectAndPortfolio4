@@ -1,10 +1,7 @@
-//
 //  EventCell.swift
 //  LegendsApp
-//
-//  Created by Mark Mckinney Jr. on 7/12/19.
+//  Created by Mark Mckinney Jr. July 2019.
 //  Copyright © 2019 Mark Mckinney Jr. All rights reserved.
-//
 
 import UIKit
 import Firebase
@@ -17,17 +14,20 @@ class EventCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDe
     var attendingingUIDs = [String]()
     var eventID = ""
     let db = Firestore.firestore()
-
+    var indexPathsForVisibleItems = [IndexPath]()
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
 
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-
+    
+    //UI Elements
     @IBOutlet weak var attendingCollection: UICollectionView!
     @IBOutlet weak var cellBG: UIImageView!
     @IBOutlet weak var monthLabel: UILabel!
@@ -35,6 +35,7 @@ class EventCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDe
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
     @IBOutlet weak var attendingCountLabel: UILabel!
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var attendCnt = 0
@@ -65,32 +66,11 @@ class EventCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDe
 
         cell.attendingImage.sd_setImage(with: reference, placeholderImage: placeholderImage)
         globalFunc.roundImage3(cell.attendingImage!)
-        
-//        let islandRef = storageRef.child("UserProfileImages/\(attendingingUIDs[indexPath.row])")
-//
-//        // Download in memory with a maximum allowed size of 1MB (1 * 1024 * 1024 bytes)
-//        islandRef.getData(maxSize: 5 * 1024 * 1024) { data, error in
-//            if let error = error {
-//                print("error loading attending: \(error)")
-//            } else {
-//                // Data for "images/island.jpg" is returned
-//                cell.attendingImage.image = UIImage(data: data!)
-//            }
-//        }
-        
-        
-        
-        
-        
+             
         return cell
     }
 
-    
-    
 
-    
-    
-    
-    
+
     
 }

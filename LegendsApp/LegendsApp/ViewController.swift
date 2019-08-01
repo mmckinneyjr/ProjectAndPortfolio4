@@ -1,10 +1,7 @@
-//
 //  ViewController.swift
 //  LegendsApp
-//
-//  Created by Mark Mckinney Jr. on 7/11/19.
+//  Created by Mark Mckinney Jr. July 2019.
 //  Copyright © 2019 Mark Mckinney Jr. All rights reserved.
-//
 
 import Foundation
 import UIKit
@@ -17,9 +14,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         usernameTextField.delegate = self
-        passwordTextField.delegate = self
-        
+        passwordTextField.delegate = self        
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -35,6 +32,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+    
     //Sets status bar content to white
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -46,8 +44,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     
     
-    
-    
     //Dismisses keyboard if tap outside keyboard area
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         usernameTextField.resignFirstResponder()
@@ -57,9 +53,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     //Log in button
     @IBAction func loginButton(_ sender: Any) {
-       logInHandler()
+        logInHandler()
     }
-    
     
     
     @IBAction func forgotPassword(_ sender: Any) {
@@ -84,8 +79,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    
-    
     //Switch from one textfield to another
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == usernameTextField {
@@ -102,7 +95,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         if let email = usernameTextField.text, let password = passwordTextField.text {
             Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
                 guard self != nil else { return }
-
+                
                 if error == nil && user != nil {
                     self?.performSegue(withIdentifier: "signInSegue", sender: self)
                 }
@@ -113,23 +106,15 @@ class ViewController: UIViewController, UITextFieldDelegate {
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-//Alert Function
-func Alert(title: String, message: String) {
-    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    let okButton = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-    alert.addAction(okButton)
-    present(alert, animated: true, completion: nil)
-}
-
+    
+    
+    //Alert Function
+    func Alert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(okButton)
+        present(alert, animated: true, completion: nil)
+    }
+    
 }
 
